@@ -15,8 +15,8 @@ const About = () => {
                     <div className='md:flex-1'>
 
                         <p className="py-6">
-                            <span className='text-3xl font-bold text-blue-400'>At ServiceSpectrum,</span>  we are dedicated to providing top-notch service solutions tailored to meet your unique needs. Our platform connects you with a wide range of professional services, ensuring you receive the highest 
-                            quality assistance, whether you're seeking technical support, business consultancy, or specialized services.
+                            <span className='text-3xl font-bold text-blue-200' style = {{textShadow: '2px 2px 4px rgba(255, 10, 20, 0.7)'}}>At ServiceSpectrum,</span>  we are dedicated to providing top-notch service solutions tailored to meet your unique needs. Our platform connects you with a wide range of professional services, ensuring you receive the highest 
+                            quality assistance, whether you are seeking technical support, business consultancy, or specialized services.
                             Our commitment to excellence and customer satisfaction sets us apart. We carefully vet all our service providers 
                             to ensure they meet our stringent quality standards, giving you peace of mind with every interaction.
                             Explore our comprehensive service offerings and discover how ServiceSpectrum can help streamline your tasks, 
