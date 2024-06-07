@@ -1,0 +1,24 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+    /* Make sure the container fits the image size */
+}
+
+.image-container img {
+    display: block;
+    width: 100%;
+    /* Ensure the image scales correctly */
+    height: auto;
+}
+
+.button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.button-container .btn {
+    /* Any additional button styles you need */
+}

@@ -10,7 +10,7 @@ const Navbar = () => {
             <NavLink to="/join_as_employee">Join_As_Employee</NavLink>
         </li>
         <li>
-            <NavLink to="/join_as_manager">Join_As_Manager</NavLink>
+            <NavLink to="/join_as_manager">Join_As_HR_Manager</NavLink>
         </li>
         <li>
             <NavLink to="/login">Login</NavLink>
