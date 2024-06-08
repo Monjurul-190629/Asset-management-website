@@ -1,6 +1,11 @@
 import { useContext } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../Provider/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import Swal from "sweetalert2";
+import { signInWithPopup } from "firebase/auth";
+import auth from "../Firebase/firebase.config";
+import { FaGoogle } from "react-icons/fa";
 
 
 const Join_as_manager = () => {
@@ -22,7 +27,7 @@ const Join_as_manager = () => {
             name: name,
             email: email,
             Date_of_Birth: Date_of_Birth,
-            role: 'employee'
+            role: 'HR_manager'
         }
         console.log(userInfo)
 
@@ -58,7 +63,7 @@ const Join_as_manager = () => {
                     name: result.user?.displayName,
                     email: result.email?.email,
                     Date_of_Birth: result.date_of_birth?.date_of_birth,
-                    role: 'employee'
+                    role: 'HR_manager'
                 }
                 axiosPublic.post('/users', userInfo)
                     .then(res => {
@@ -83,14 +88,22 @@ const Join_as_manager = () => {
 
     return (
         <div className="pt-20 md:mx-32 mx-0">
-            <div className="md:bg-purple-400 rounded-lg">
+            <div className="md:bg-purple-600 rounded-lg">
                 <div className="flex flex-col-reverse md:flex-row justify-center items-center md:p-20 max-w-screen-xl">
-                    <div className="px-16 md:px-20 py-10 bg-gray-300 rounded-xl w-[470px] border-x-slate-400">
-                        <h2 className="text-xl font-semibold mb-5">Register as a New Employee</h2>
-                        <form onSubmit={handleRegistration}>
+                    <div className="px-16 md:px-10 py-10 bg-gray-300 rounded-xl w-[350px] md:w-[770px] border-x-slate-400">
+                        <h2 className="text-xl font-semibold mb-5 underline">Register as a New HR_Manager:</h2>
+                        <form onSubmit={handleRegistration} className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8">
                             <div className="form-group">
                                 <p className="font-bold text-xl mb-2">Full Name : </p>
                                 <input type="text" id="fullName" className="w-full mb-5 p-1 " name="fullName" required />
+                            </div>
+                            <div className="form-group">
+                                <p className="font-bold text-xl mb-2">Company Name : </p>
+                                <input type="text" id="companyName" className="w-full mb-5 p-1 " name="companyName" required />
+                            </div>
+                            <div className="form-group">
+                                <p className="font-bold text-xl mb-2">Company Logo url : </p>
+                                <input type="text" id="companyLogoUrl" className="w-full mb-5 p-1 " name="companyLogoUrl" required />
                             </div>
                             <div className="form-group">
                                 <p className="font-bold text-xl mb-2">Email : </p>
@@ -105,6 +118,15 @@ const Join_as_manager = () => {
                                 <p className="font-bold text-xl mb-2">Date_of_Birth : </p>
                                 <input type="date" id="date" className="w-full mb-5 p-1" name="date" required />
                             </div>
+                            <div className="form-group mb-5">
+                                <p className="font-bold text-xl mb-2">Select a package : </p>
+                                <select name="package" className="py-2 px-2 rounded-md">
+                                    <option value="">Select package</option>
+                                    <option value="add_5_members">5 members for $5</option>
+                                    <option value="add_10_members">10 members for $8</option>
+                                    <option value="add_20_members">20 members for $15</option>
+                                </select>
+                            </div>
 
                             <button type="submit" className="btn btn-primary">Sign Up</button>
                             <div className="flex justify-center items-center mt-5">
@@ -114,7 +136,7 @@ const Join_as_manager = () => {
                     </div>
                     <div className="info-container">
                         <img
-                            src="https://i.ibb.co/pwT3gDb/sign-up-edit-mail-icon-glossy-blue-round-button-isolated-abstract-illustration-90055351.jpg" className="w-[300px] md:w-[500px] md:h-[400px] rounded-lg"
+                            src="https://www.time4learning.com/_img/buttons/signUpYellow_button.png" className="w-[300px] md:w-[500px] md:h-[400px] rounded-lg"
                             alt="Sign up image"
                         />
                     </div>
