@@ -2,14 +2,17 @@ import { useContext } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../Provider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth/web-extension";
-import Swal from "sweetalert2";
 import { signInWithPopup } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
 import { FaGoogle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Join_as_manager = () => {
 
+
+    const navigate = useNavigate();
 
     const axiosPublic = useAxiosPublic();
     const { createUser } = useContext(AuthContext)
@@ -22,11 +25,17 @@ const Join_as_manager = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const Date_of_Birth = e.target.date.value;
+        const Company_name = e.target.companyName.value;
+        const Company_logo = e.target.companyLogoUrl.value;
+        const Selected_package = e.target.package.value;
 
         const userInfo = {
             name: name,
             email: email,
             Date_of_Birth: Date_of_Birth,
+            Company_name: Company_name,
+            Company_logo: Company_logo,
+            Selected_package: Selected_package,
             role: 'HR_manager'
         }
         console.log(userInfo)
@@ -38,6 +47,8 @@ const Join_as_manager = () => {
                 console.log(result.user)
                 axiosPublic.post('/users', userInfo)
                     .then(res => {
+                        navigate('/')
+                        console.log(res.data)
                         if (res.data.insertedId) {
                             Swal.fire({
                                 title: 'Success!',
@@ -67,6 +78,8 @@ const Join_as_manager = () => {
                 }
                 axiosPublic.post('/users', userInfo)
                     .then(res => {
+                        navigate('/')
+
                         Swal.fire({
                             title: 'Success!',
                             text: 'Registrared successfully',
@@ -74,6 +87,7 @@ const Join_as_manager = () => {
                             confirmButtonText: 'Cool'
 
                         })
+
                         console.log(res.data)
                     })
 
@@ -92,7 +106,7 @@ const Join_as_manager = () => {
                 <div className="flex flex-col-reverse md:flex-row justify-center items-center md:p-20 max-w-screen-xl">
                     <div className="px-16 md:px-10 py-10 bg-gray-300 rounded-xl w-[350px] md:w-[770px] border-x-slate-400">
                         <h2 className="text-xl font-semibold mb-5 underline">Register as a New HR_Manager:</h2>
-                        <form onSubmit={handleRegistration} className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8">
+                        <form onSubmit={handleRegistration} className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5">
                             <div className="form-group">
                                 <p className="font-bold text-xl mb-2">Full Name : </p>
                                 <input type="text" id="fullName" className="w-full mb-5 p-1 " name="fullName" required />
@@ -116,21 +130,25 @@ const Join_as_manager = () => {
 
                             <div className="form-group">
                                 <p className="font-bold text-xl mb-2">Date_of_Birth : </p>
-                                <input type="date" id="date" className="w-full mb-5 p-1" name="date" required />
+                                <input type="text" id="date" className="w-full mb-5 p-1" name="date" placeholder="dd-mm--yy" required />
                             </div>
                             <div className="form-group mb-5">
                                 <p className="font-bold text-xl mb-2">Select a package : </p>
                                 <select name="package" className="py-2 px-2 rounded-md">
                                     <option value="">Select package</option>
-                                    <option value="add_5_members">5 members for $5</option>
-                                    <option value="add_10_members">10 members for $8</option>
-                                    <option value="add_20_members">20 members for $15</option>
+                                    <option value="1">5 members for $5</option>
+                                    <option value="2">10 members for $8</option>
+                                    <option value="3">20 members for $15</option>
                                 </select>
                             </div>
 
-                            <button type="submit" className="btn btn-primary">Sign Up</button>
+
+                            {/* Modal */}
+                            {/* You can open the modal using document.getElementById('ID').showModal() method */}
+                            <button type="Submit" className="btn btn-primary">Sign up</button>
+                            
                             <div className="flex justify-center items-center mt-5">
-                                <button onClick={handleGoogleSignup} className="btn bg-blue-500 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black">Sign up with your gmail <FaGoogle /></button>
+                                <button onClick={handleGoogleSignup} className="btn bg-blue-700 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black">Sign up with your gmail <FaGoogle /></button>
                             </div>
                         </form>
                     </div>

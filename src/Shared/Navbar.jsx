@@ -1,7 +1,13 @@
 import { NavLink } from "react-router-dom";
 
 
+
+
 const Navbar = () => {
+
+    
+
+    
     const navLink = <>
         <li>
             <NavLink to="/">Home</NavLink>
@@ -15,10 +21,9 @@ const Navbar = () => {
         <li>
             <NavLink to="/login">Login</NavLink>
         </li>
-
-
-
     </>
+    
+
     return (
         <div>
             <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
@@ -32,15 +37,17 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className="flex">
-                        <img src="https://i.ibb.co/FwnDR32/circle-icon-demo-4x.jpg" className="w-16"/>
-                        <a className="btn btn-ghost text-xl text-gray-300" style = {{textShadow: '2px 2px 4px rgba(255, 10, 100, 0.7)'}}>ServiceSpectrum</a>
+                        <img src="https://i.ibb.co/FwnDR32/circle-icon-demo-4x.jpg" className="w-16" />
+                        <a className="btn btn-ghost text-xl text-gray-300" style={{ textShadow: '2px 2px 4px rgba(255, 10, 100, 0.7)' }}>ServiceSpectrum</a>
                     </div>
                 </div>
                 <div className="navbar-end hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-sm menu-horizontal px-1">
                         {navLink}
                     </ul>
                 </div>
+
+
 
             </div>
         </div>
