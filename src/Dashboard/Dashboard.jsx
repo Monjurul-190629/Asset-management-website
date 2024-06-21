@@ -8,6 +8,7 @@ const Dashboard = () => {
     const [isManager] = useManager();
     /// navigate
     const navigate = useNavigate();
+    
     console.log(isManager)
     /// user logout
     const { user, logOut } = useContext(AuthContext);
@@ -55,6 +56,9 @@ const Dashboard = () => {
             <NavLink to="/Dashboard/All_requests">All requests</NavLink>
         </li>
         <li>
+            <NavLink to="/Dashboard/Add_an_employee">Add an Employee</NavLink>
+        </li>
+        <li>
             <NavLink to="/Dashboard/MyEmployeeList">My employee list</NavLink>
         </li>
         <li>
@@ -67,19 +71,19 @@ const Dashboard = () => {
     const navLink1 = <>
 
         <li>
-            <NavLink to="/Employee/Home">Home</NavLink>
+            <NavLink to="/Dashboard/Home2">Home</NavLink>
         </li>
         <li>
-            <NavLink to="/Employee/My_assets">My Assets</NavLink>
+            <NavLink to="/Dashboard/My_assets">My Assets</NavLink>
         </li>
         <li>
-            <NavLink to="/Employee/My_team">My Team</NavLink>
+            <NavLink to="/Dashboard/My_team">My Team</NavLink>
         </li>
         <li>
-            <NavLink to="/Employee/Request_for_asset">Request for an asset</NavLink>
+            <NavLink to="/Dashboard/Request_for_asset">Request for an asset</NavLink>
         </li>
         <li>
-            <NavLink to="/Profile">Profile</NavLink>
+            <NavLink to="/Dashboard/Profile">Profile</NavLink>
         </li>
 
 
@@ -89,7 +93,7 @@ const Dashboard = () => {
             {
                 isManager ?
                     <>
-
+                       
                         <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
                             <div className="navbar-start">
                                 <div className="dropdown">
@@ -113,8 +117,8 @@ const Dashboard = () => {
                             <div className="navbar-end">
                                 {
                                     user ? <>
-                                        <div className="tooltip  hover:tooltip-open" data-tip={data.name}>
-                                            <span><img src={user.photoURL} className="ml-12 w-1/3 md:w-1/4" /></span>
+                                        <div className="tooltip  hover:tooltip-open tooltip-left" data-tip={data.name}>
+                                            <span><img src={data.Profile_image} className="w-[40px] mr-2" /></span>
                                         </div>
 
                                         <a onClick={handleLogout} className="btn btn-sm">Log out</a>
@@ -149,8 +153,8 @@ const Dashboard = () => {
                             <div className="navbar-end">
                                 {
                                     user ? <>
-                                        <div className="tooltip  hover:tooltip-open" data-tip={data.name}>
-                                            <span><img src={data.photoURL} className="ml-12 w-1/3 md:w-1/4" /></span>
+                                        <div className="tooltip  hover:tooltip-open tooltip-left" data-tip={data.name}>
+                                            <span><img src={data.Profile_image} className="w-[40px] mr-2" /></span>
                                         </div>
 
                                         <a onClick={handleLogout} className="btn btn-sm">Log out</a>

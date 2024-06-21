@@ -28,15 +28,18 @@ const Join_as_manager = () => {
         const Company_name = e.target.companyName.value;
         const Company_logo = e.target.companyLogoUrl.value;
         const Selected_package = e.target.package.value;
-
+        const Profile_image = e.target.profile_image.value;
         const userInfo = {
             name: name,
             email: email,
+            Profile_image : Profile_image,
             Date_of_Birth: Date_of_Birth,
             Company_name: Company_name,
             Company_logo: Company_logo,
             Selected_package: Selected_package,
-            role: 'HR_manager'
+            role: 'HR_manager',
+            limit : 0,
+            Employee_count : 0
         }
         console.log(userInfo)
 
@@ -46,6 +49,7 @@ const Join_as_manager = () => {
             .then(result => {
                 console.log(result.user)
                 axiosPublic.post('/users', userInfo)
+                axiosPublic.post('/companyHolder', userInfo)
                     .then(res => {
                         navigate('/')
                         console.log(res.data)
@@ -112,6 +116,10 @@ const Join_as_manager = () => {
                                 <input type="text" id="fullName" className="w-full mb-5 p-1 " name="fullName" required />
                             </div>
                             <div className="form-group">
+                                <p className="font-bold text-xl mb-2">Profile_image : </p>
+                                <input type="text" id="profile_image" className="w-full mb-5 p-1 " name="profile_image" required />
+                            </div>
+                            <div className="form-group">
                                 <p className="font-bold text-xl mb-2">Company Name : </p>
                                 <input type="text" id="companyName" className="w-full mb-5 p-1 " name="companyName" required />
                             </div>
@@ -145,9 +153,9 @@ const Join_as_manager = () => {
 
                             {/* Modal */}
                             {/* You can open the modal using document.getElementById('ID').showModal() method */}
-                            <button type="Submit" className="btn btn-primary">Sign up</button>
-                            
-                            <div className="flex justify-center items-center mt-5">
+                            <button type="Submit" className="btn bg-blue-700 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black">Sign up</button>
+                            <br/>
+                            <div className="mt-5">
                                 <button onClick={handleGoogleSignup} className="btn bg-blue-700 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black">Sign up with your gmail <FaGoogle /></button>
                             </div>
                         </form>

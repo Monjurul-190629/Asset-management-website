@@ -9,14 +9,19 @@ import auth from "../Firebase/firebase.config";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 
+
+
 const Login = () => {
 
     const { signInuser } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    
+    
 
     //// axios 
     const axiosPublic = useAxiosPublic();
+
+    
 
     const handleLogin = e => {
         e.preventDefault();
@@ -24,6 +29,10 @@ const Login = () => {
         const password = e.target.password.value;
         console.log(email, password)
 
+
+        /// check manager or not
+
+        
         
         /// Login
         signInuser(email, password)

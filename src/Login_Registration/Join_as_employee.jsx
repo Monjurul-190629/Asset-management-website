@@ -24,12 +24,14 @@ const Join_as_employee = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const Date_of_Birth = e.target.date.value;
-
+        const Profile_image = e.target.profile_image.value;
         const userInfo = {
             name: name,
             email: email,
             Date_of_Birth: Date_of_Birth,
-            role: 'employee'
+            role: 'employee',
+            Profile_image : Profile_image,
+            Company_name : null
         }
         console.log(userInfo)
 
@@ -97,6 +99,10 @@ const Join_as_employee = () => {
                                 <input type="text" id="fullName" className="w-full mb-5 p-1 " name="fullName" required />
                             </div>
                             <div className="form-group">
+                                <p className="font-bold text-xl mb-2">Profile_image : </p>
+                                <input type="text" id="profile_image" className="w-full mb-5 p-1 " name="profile_image" required />
+                            </div>
+                            <div className="form-group">
                                 <p className="font-bold text-xl mb-2">Email : </p>
                                 <input type="email" id="email" className="w-full mb-5 p-1" name="email" required />
                             </div>
@@ -107,7 +113,7 @@ const Join_as_employee = () => {
 
                             <div className="form-group">
                                 <p className="font-bold text-xl mb-2">Date_of_Birth : </p>
-                                <input type="date" id="date" className="w-full mb-5 p-1" name="date" required />
+                                <input type="text" id="date" className="w-full mb-5 p-1" name="date" required />
                             </div>
 
                             <button type="submit" className="btn btn-primary">Sign Up</button>

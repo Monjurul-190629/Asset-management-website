@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ value }) => {
 
     const stripe = useStripe();
     const elements = useElements();
@@ -19,8 +19,47 @@ const CheckoutForm = () => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
+    const [limit, setLimit] = useState(0);
 
-    const totalPrice = 5
+
+    const [employee, setEmployee] = useState(0);
+
+    
+
+    let totalPrice = 5;
+
+
+    if (value == 2) {
+        totalPrice = 8;
+        
+    }
+    else if (value == 3) {
+        totalPrice = 15;
+    }
+
+
+    useEffect(() => {
+        fetch('http://localhost:5000/companyHolder')
+            .then(res => res.json())
+            .then(data => {
+                setLimit(data[0].limit)
+            })
+    }, [])
+
+
+    console.log(limit)
+    
+    /// for the employee
+    useEffect(() => {
+        fetch(`http://localhost:5000/companyHolder/${user.email}`)
+            .then(res => res.json())
+            .then(d => {
+                setEmployee(d.Employee_count)
+            })
+    }, [])
+
+
+
 
     useEffect(() => {
         if (totalPrice > 0) {
@@ -32,6 +71,29 @@ const CheckoutForm = () => {
         }
 
     }, [axiosSecure, totalPrice])
+
+   
+    const updateLimit = async () => {
+        
+        let incrementValue = 5;
+        if(value == 2){
+            incrementValue = 10;
+        }
+        else if(value == 3){
+            incrementValue = 20;
+        }
+
+        try {
+            const res = await axiosSecure.put(`/companyHolder/${user.email}`, {
+                limit: incrementValue + limit,
+                Employee_count : employee 
+            });
+            console.log('Limit updated', res.data);
+        } catch (error) {
+            console.error('Error updating limit', error);
+        }
+    };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -87,9 +149,13 @@ const CheckoutForm = () => {
                     email: user.email,
                     price: totalPrice,
                     transactionId: paymentIntent.id,
-                    date: new Date(), 
+                    date: new Date(),
 
                 }
+                
+
+                
+
 
                 const res = await axiosSecure.post('/payments', payment);
                 console.log('payment saved', res.data);
@@ -99,9 +165,11 @@ const CheckoutForm = () => {
                     icon: "success",
                     title: "Thank you",
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 2000,
+                    
                 });
-               navigate('/Dashboard/paymentHistory')
+                await updateLimit();
+                navigate('/Dashboard/paymentHistory')
             }
         }
 
