@@ -1,8 +1,40 @@
+import Swal from "sweetalert2";
 
 
-const AssetCard = ({ asset }) => {
+const AssetCard = ({ asset, onDelete }) => {
 
     const { _id, Product_name, Product_type, Product_Quantity, Date_added, Asset_image } = asset;
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/assets/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "This card has been deleted.",
+                                icon: "success"
+                            })
+
+                            onDelete();
+                            
+                        }
+                    })
+            }
+        });
+    }
 
     return (
         <div>
@@ -22,7 +54,7 @@ const AssetCard = ({ asset }) => {
                     </div>
                     <div className="card-actions flex gap-10 pt-6">
                         <button className="btn btn-primary btn-md">Update</button>
-                        <button className="btn btn-primary btn-md">Delete</button>
+                        <button className="btn btn-primary btn-md" onClick={() => handleDelete(_id)}>Delete</button>
                     </div>
                 </div>
             </div>

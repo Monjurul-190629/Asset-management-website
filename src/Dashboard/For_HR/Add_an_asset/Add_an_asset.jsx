@@ -9,8 +9,14 @@ const Add_an_asset = () => {
         const Product_type = e.target.Product_type.value;
         const Product_Quantity = e.target.Product_Quantity.value;
         const Asset_image = e.target.Asset_image.value;
+        const date = new Date();
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        const Date_added = `${year}-${month}-${day}`
+        console.log(Date_added)
         const fullData = {
-            Product_name, Product_type, Product_Quantity, Asset_image
+            Product_name, Product_type, Product_Quantity, Asset_image, Date_added
         }
 
         /// post

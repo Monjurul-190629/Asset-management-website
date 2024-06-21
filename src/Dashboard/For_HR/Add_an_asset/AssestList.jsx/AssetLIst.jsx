@@ -11,6 +11,23 @@ const AssetList = () => {
     const [sortBy, setSortBy] = useState("quantity-asc");
 
     useEffect(() => {
+        fetchAssets();
+    }, []);
+
+    const fetchAssets = () => {
+        fetch('http://localhost:5000/assets')
+            .then(res => res.json())
+            .then(data => setAssets(data))
+            .catch(error => console.error('Error fetching assets:', error));
+    };
+
+    const handleDelete = () => {
+        fetchAssets(); // Example: You may need to implement logic to update assets state
+    };
+
+    
+
+    useEffect(() => {
         fetch('http://localhost:5000/assets')
             .then(res => {
                 if (!res.ok) {
@@ -107,7 +124,7 @@ const AssetList = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {filteredAndSortedAssets.length > 0 ? (
                         filteredAndSortedAssets.map(asset => (
-                            <AssetCard key={asset._id} asset={asset} />
+                            <AssetCard key={asset._id} asset={asset}  onDelete = {handleDelete}/>
                         ))
                     ) : (
                         <p>No assets found</p>
