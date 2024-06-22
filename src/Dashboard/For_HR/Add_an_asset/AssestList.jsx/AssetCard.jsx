@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
@@ -53,7 +54,7 @@ const AssetCard = ({ asset, onDelete }) => {
                         <h3><span className="font-semibold text-[18px]">Date:</span> {Date_added}</h3>
                     </div>
                     <div className="card-actions flex gap-10 pt-6">
-                        <button className="btn btn-primary btn-md">Update</button>
+                        <Link to = {`/Dashboard/UpdateData/${_id}`}><button className="btn btn-primary btn-md">Update</button></Link>
                         <button className="btn btn-primary btn-md" onClick={() => handleDelete(_id)}>Delete</button>
                     </div>
                 </div>

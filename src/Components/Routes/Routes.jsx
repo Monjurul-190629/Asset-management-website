@@ -21,6 +21,7 @@ import Myteam from "../../Dashboard/For_Em/Myteam.jsx";
 import Request_for_asset from "../../Dashboard/For_Em/Request_for_asset.jsx";
 import Add_an_employee from "../../Dashboard/For_HR1/Add_an_employee.jsx";
 import Package from "../../Dashboard/For_HR1/Package.jsx";
+import UpdateData from "../../Dashboard/For_HR/Add_an_asset/UpdateData.jsx";
 
 
 
@@ -99,6 +100,11 @@ export const router = createBrowserRouter([
                 path: 'Package',
                 element: <Package></Package>
             },
+            {
+                path : "UpdateData/:id",
+                element : <UpdateData></UpdateData>,
+                loader : ({params}) => fetch(`http://localhost:5000/assets/${params.id}`)
+              },
             /// for employee
             {
                 path: 'Home2',

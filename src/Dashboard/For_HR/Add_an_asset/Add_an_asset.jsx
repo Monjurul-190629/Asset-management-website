@@ -20,8 +20,6 @@ const Add_an_asset = () => {
         }
 
         /// post
-        ////fetch
-        ////// fetch
         fetch('http://localhost:5000/assets', {
             method: "POST",
             headers: {
@@ -69,7 +67,7 @@ const Add_an_asset = () => {
                             <input type="number" name="Product_Quantity" className="py-2 px-2 rounded-md" />
                         </div>
                         
-                        <input type="submit" value="add" className="w-full bg-slate-300 rounded-md hover:text-white hover:bg-transparent hover:border-2 hover:border-white" />
+                        <input type="submit" value="ADD" className="w-full bg-slate-300 rounded-md hover:text-white hover:bg-transparent hover:border-2 hover:border-white" />
                     </form>
                 </div>
             </div>
