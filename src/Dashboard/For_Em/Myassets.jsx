@@ -3,7 +3,7 @@
 const Myassets = () => {
     return (
         <div>
-            Asset page
+            
         </div>
     );
 };
