@@ -49,7 +49,7 @@ const Request_for_asset = () => {
     // Filter and sort assets based on current state
     const filteredAndSortedAssets = assets.filter(asset => {
         const nameMatch = asset.Product_name.toLowerCase().includes(searchTerm.toLowerCase());
-        const stockMatch = stockFilter === "all" || (stockFilter === "available" && asset.Product_Quantity > 0) || (stockFilter === "out-of-stock" && asset.Product_Quantity == 0);
+        const stockMatch = stockFilter === "all" || (stockFilter === "available" && asset.Product_Quantity > 0) || (stockFilter === "out-of-stock" && asset.Product_Quantity === 0);
         const typeMatch = typeFilter === "all" || (typeFilter === "returnable" && asset.Product_type === "Returnable") || (typeFilter === "non-returnable" && asset.Product_type === "Non-returnable");
 
         return nameMatch && stockMatch && typeMatch;

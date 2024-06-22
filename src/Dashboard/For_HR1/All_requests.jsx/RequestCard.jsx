@@ -50,7 +50,7 @@ const RequestCard = ({ asset, onDelete }) => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, Reject it!"
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`http://localhost:5000/requestAsset/${id}`, {

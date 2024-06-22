@@ -7,6 +7,7 @@ import auth from "../Firebase/firebase.config";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 
 const Join_as_manager = () => {
@@ -106,6 +107,9 @@ const Join_as_manager = () => {
 
     return (
         <div className="pt-20 md:mx-32 mx-0">
+            <Helmet>
+                <title>Join as Manager</title>
+            </Helmet>
             <div className="md:bg-purple-600 rounded-lg">
                 <div className="flex flex-col-reverse md:flex-row justify-center items-center md:p-20 max-w-screen-xl">
                     <div className="px-16 md:px-10 py-10 bg-gray-300 rounded-xl w-[350px] md:w-[770px] border-x-slate-400">

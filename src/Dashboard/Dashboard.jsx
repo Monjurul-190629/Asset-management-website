@@ -2,13 +2,15 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import useManager from "../Hooks/useManager";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import Footer from "../Shared/Footer";
+
 
 
 const Dashboard = () => {
     const [isManager] = useManager();
     /// navigate
     const navigate = useNavigate();
-    
+
     console.log(isManager)
     /// user logout
     const { user, logOut } = useContext(AuthContext);
@@ -74,7 +76,7 @@ const Dashboard = () => {
             <NavLink to="/Dashboard/Home2">Home</NavLink>
         </li>
         <li>
-            <NavLink to="/Dashboard/My_assets">My Assets</NavLink>
+            <NavLink to="/Dashboard/My_assets">My Requested Assets</NavLink>
         </li>
         <li>
             <NavLink to="/Dashboard/My_team">My Team</NavLink>
@@ -90,88 +92,109 @@ const Dashboard = () => {
     </>
     return (
         <div>
-            {
-                isManager ?
-                    <>
-                       
-                        <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
-                            <div className="navbar-start">
-                                <div className="dropdown">
-                                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            <div>
+                {
+                    isManager ?
+                        <>
+
+                            <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
+                                <div className="navbar-start">
+                                    <div className="dropdown">
+                                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                                        </div>
+                                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                            {navLink}
+                                        </ul>
                                     </div>
-                                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                    <div>
+                                        <img src={data.Company_logo} className="w-16" />
+                                    </div>
+                                    <a className="btn btn-ghost text-xl">{data.Company_name}</a>
+                                </div>
+                                <div className="navbar-center hidden lg:flex">
+                                    <ul className="menu menu-sm menu-horizontal px-1">
                                         {navLink}
                                     </ul>
                                 </div>
-                                <div>
-                                    <img src={data.Company_logo} className="w-16" />
+                                <div className="navbar-end">
+                                    {
+                                        user ? <>
+                                            <div className="tooltip  hover:tooltip-open tooltip-left" data-tip={data.name}>
+                                                <span><img src={data.Profile_image} className="w-[40px] mr-2" /></span>
+                                            </div>
+
+                                            <a onClick={handleLogout} className="btn btn-sm">Log out</a>
+                                        </> :
+                                            <>
+
+                                            </>
+                                    }
                                 </div>
-                                <a className="btn btn-ghost text-xl">{data.Company_name}</a>
                             </div>
-                            <div className="navbar-center hidden lg:flex">
-                                <ul className="menu menu-sm menu-horizontal px-1">
-                                    {navLink}
-                                </ul>
-                            </div>
-                            <div className="navbar-end">
-                                {
-                                    user ? <>
-                                        <div className="tooltip  hover:tooltip-open tooltip-left" data-tip={data.name}>
-                                            <span><img src={data.Profile_image} className="w-[40px] mr-2" /></span>
+
+
+
+
+                        </> :
+                        <>
+
+                            <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
+                                <div className="navbar-start">
+                                    <div className="dropdown">
+                                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                                         </div>
-
-                                        <a onClick={handleLogout} className="btn btn-sm">Log out</a>
-                                    </> :
-                                        <>
-
-                                        </>
-                                }
-                            </div>
-                        </div>
-
-                    </> :
-                    <>
-
-                        <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
-                            <div className="navbar-start">
-                                <div className="dropdown">
-                                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                            {navLink1}
+                                        </ul>
                                     </div>
-                                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                    <div>
+                                        {
+                                            data.Company_logo ? <><img src={data.Company_logo} className="w-16" /></> : <><img src="https://i.ibb.co/FwnDR32/circle-icon-demo-4x.jpg" className="w-16" /> </>
+                                        }
+
+                                    </div>
+                                    {
+                                        data.Company_name ? <><a className="btn btn-ghost text-xl">{data.Company_name}</a></> : <><a className="btn btn-ghost text-xl">ServiceSpectrum</a> </>
+                                    }
+                                </div>
+                                <div className="navbar-center hidden lg:flex">
+                                    <ul className="menu menu-sm menu-horizontal px-1">
                                         {navLink1}
                                     </ul>
                                 </div>
-                                <a className="btn btn-ghost text-xl">daisyUI</a>
+                                <div className="navbar-end">
+                                    {
+                                        user ? <>
+                                            <div className="tooltip  hover:tooltip-open tooltip-left" data-tip={data.name}>
+                                                <span><img src={data.Profile_image} className="w-[40px] mr-2" /></span>
+                                            </div>
+
+                                            <a onClick={handleLogout} className="btn btn-sm">Log out</a>
+                                        </> :
+                                            <>
+
+                                            </>
+                                    }
+                                </div>
                             </div>
-                            <div className="navbar-center hidden lg:flex">
-                                <ul className="menu menu-sm menu-horizontal px-1">
-                                    {navLink1}
-                                </ul>
-                            </div>
-                            <div className="navbar-end">
-                                {
-                                    user ? <>
-                                        <div className="tooltip  hover:tooltip-open tooltip-left" data-tip={data.name}>
-                                            <span><img src={data.Profile_image} className="w-[40px] mr-2" /></span>
-                                        </div>
-
-                                        <a onClick={handleLogout} className="btn btn-sm">Log out</a>
-                                    </> :
-                                        <>
-
-                                        </>
-                                }
-                            </div>
-                        </div>
 
 
-                    </>
-            }
+
+
+                        </>
+                }
+            </div>
+
+           
+
             {/* Dashboard content */}
             <div className="pt-24">
                 <Outlet></Outlet>
+            </div>
+            <div>
+                <Footer></Footer>
             </div>
         </div>
     );

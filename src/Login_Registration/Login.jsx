@@ -7,6 +7,7 @@ import { signInWithPopup } from "firebase/auth";
 import { AuthContext } from "../Provider/AuthProvider";
 import auth from "../Firebase/firebase.config";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet";
 
 
 
@@ -39,7 +40,7 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 e.target.reset();
-                navigate('/Dashboard')
+                navigate('/Dashboard/Home3')
             })
             .catch(error => {
                 toast(error.message)
@@ -57,7 +58,7 @@ const Login = () => {
                 }
                 axiosPublic.post('/users', userInfo)
                 .then(res => {
-                    navigate('/Dashboard')
+                    navigate('/Dashboard/Home3')
                     console.log(res.data)
                 })
                 
@@ -72,6 +73,9 @@ const Login = () => {
 
     return (
         <div className="pt-20">
+            <Helmet>
+                <title>Login</title>
+            </Helmet>
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse ">
                     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-purple-500 px-5 md:p-10">

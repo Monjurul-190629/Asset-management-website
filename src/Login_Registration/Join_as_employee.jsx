@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 // for google sign up
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
+import { Helmet } from "react-helmet";
 
 
 
@@ -89,6 +90,9 @@ const Join_as_employee = () => {
 
     return (
         <div className="pt-20 md:mx-32 mx-0">
+            <Helmet>
+                <title>Join as Employee</title>
+            </Helmet>
             <div className="md:bg-purple-400 rounded-lg">
                 <div className="flex flex-col-reverse md:flex-row justify-center items-center md:p-20 max-w-screen-xl">
                     <div className="px-16 md:px-20 py-10 bg-gray-300 rounded-xl w-[470px] border-x-slate-400">

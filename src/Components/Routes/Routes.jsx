@@ -22,6 +22,7 @@ import Request_for_asset from "../../Dashboard/For_Em/Request_for_asset.jsx";
 import Add_an_employee from "../../Dashboard/For_HR1/Add_an_employee.jsx";
 import Package from "../../Dashboard/For_HR1/Package.jsx";
 import UpdateData from "../../Dashboard/For_HR/Add_an_asset/UpdateData.jsx";
+import Home3 from "../../Dashboard/Home3.jsx";
 
 
 
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
         path : '/Dashboard',
         element: <Dashboard></Dashboard>,
         children : [
+            {
+               path: 'Home3',
+               element : <Home3></Home3>
+            }, 
             {
                 path: 'Home1',
                 element: <Home1></Home1>
