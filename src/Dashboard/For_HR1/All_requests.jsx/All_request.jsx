@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import RequestCard from "./RequestCard";
+import { Helmet } from "react-helmet";
+import useAuth from "../../../Hooks/useAuth";
 
 const AllRequest = () => {
     const [assets, setAssets] = useState([]);
@@ -7,21 +9,30 @@ const AllRequest = () => {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        fetchAssets();
-    }, []);
+    const { user } = useAuth();
+    const [data, setData] = useState(null);
 
-    const fetchAssets = () => {
-        setLoading(true);
+    useEffect(() => {
+        if (user && user.email) {
+            fetch(`http://localhost:5000/users/${user.email}`)
+                .then(res => res.json())
+                .then(data => setData(data))
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name);
+        }
+    }, [data]);
+
+    const fetchAssets = (companyName) => {
         fetch('http://localhost:5000/requestAsset')
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch assets');
-                }
-                return res.json();
-            })
-            .then(data => {
-                setAssets(data);
+            .then(res => res.json())
+            .then(dat => {
+                const filtered = dat.filter(asset => asset.Company_name === companyName);
+                setAssets(filtered);
                 setLoading(false);
             })
             .catch(error => {
@@ -31,12 +42,23 @@ const AllRequest = () => {
             });
     };
 
+    
+
+
+
+
+    
+
     const handleDelete = () => {
-        fetchAssets(); // Re-fetch assets after deletion
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
+        }
     };
 
     const handleUpdate = () => {
-        fetchAssets(); // Re-fetch assets after an update
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
+        } // Re-fetch assets after an update
     };
 
     const handleSearch = (e) => {
@@ -58,6 +80,9 @@ const AllRequest = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>All Requests</title>
+            </Helmet>
             <div className="md:text-center">
                 <div className="my-7">
                     <input

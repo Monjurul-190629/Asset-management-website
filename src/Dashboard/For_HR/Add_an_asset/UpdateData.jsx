@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -6,7 +7,7 @@ const UpdateData = () => {
 
     const asset = useLoaderData();
 
-    const { Product_name, Product_Quantity, Asset_image, Product_type, _id } = asset;
+    const { Product_name, Product_Quantity, Asset_image, Product_type, _id, Company_name } = asset;
 
     const handleUpdate = e => {
         e.preventDefault();
@@ -21,7 +22,7 @@ const UpdateData = () => {
         const Date_added = `${year}-${month}-${day}`
         console.log(Date_added)
         const fullData = {
-            Product_name, Product_type, Product_Quantity, Asset_image, Date_added
+            Product_name, Product_type, Product_Quantity, Asset_image, Date_added, Company_name
         }
 
 
@@ -50,6 +51,9 @@ const UpdateData = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Update Asset</title>
+            </Helmet>
             <div>
                 <div className="bg-purple-400 my-20 py-10 rounded-3xl">
                     <h2 className="text-center font-bold text-3xl">Update an Asset</h2>

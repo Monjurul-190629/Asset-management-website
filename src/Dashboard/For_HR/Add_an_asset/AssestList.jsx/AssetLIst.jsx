@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import AssetCard from "./AssetCard";
+import { Helmet } from "react-helmet";
+import useAuth from "../../../../Hooks/useAuth";
 
 const AssetList = () => {
     const [assets, setAssets] = useState([]);
@@ -10,33 +12,30 @@ const AssetList = () => {
     const [typeFilter, setTypeFilter] = useState("all");
     const [sortBy, setSortBy] = useState("quantity-asc");
 
-    useEffect(() => {
-        fetchAssets();
-    }, []);
+    const { user } = useAuth();
+    const [data, setData] = useState(null);
 
-    const fetchAssets = () => {
+    useEffect(() => {
+        if (user && user.email) {
+            fetch(`http://localhost:5000/users/${user.email}`)
+                .then(res => res.json())
+                .then(data => setData(data))
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name);
+        }
+    }, [data]);
+
+    const fetchAssets = (companyName) => {
         fetch('http://localhost:5000/assets')
             .then(res => res.json())
-            .then(data => setAssets(data))
-            .catch(error => console.error('Error fetching assets:', error));
-    };
-
-    const handleDelete = () => {
-        fetchAssets(); // Example: You may need to implement logic to update assets state
-    };
-    
-    
-
-    useEffect(() => {
-        fetch('http://localhost:5000/assets')
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch assets');
-                }
-                return res.json();
-            })
-            .then(data => {
-                setAssets(data);
+            .then(dat => {
+                const filtered = dat.filter(asset => asset.Company_name === companyName);
+                setAssets(filtered);
                 setLoading(false);
             })
             .catch(error => {
@@ -44,7 +43,13 @@ const AssetList = () => {
                 setError(error.message);
                 setLoading(false);
             });
-    }, []);
+    };
+
+    const handleDelete = () => {
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
+        }
+    };
 
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
@@ -65,7 +70,7 @@ const AssetList = () => {
     // Filter and sort assets based on current state
     const filteredAndSortedAssets = assets.filter(asset => {
         const nameMatch = asset.Product_name.toLowerCase().includes(searchTerm.toLowerCase());
-        const stockMatch = stockFilter === "all" || (stockFilter === "available" && asset.Product_Quantity > 0) || (stockFilter === "out-of-stock" && asset.Product_Quantity == 0);
+        const stockMatch = stockFilter === "all" || (stockFilter === "available" && asset.Product_Quantity > 0) || (stockFilter === "out-of-stock" && asset.Product_Quantity === 0);
         const typeMatch = typeFilter === "all" || (typeFilter === "returnable" && asset.Product_type === "Returnable") || (typeFilter === "non-returnable" && asset.Product_type === "Non-returnable");
 
         return nameMatch && stockMatch && typeMatch;
@@ -78,16 +83,19 @@ const AssetList = () => {
         return 0;
     });
 
-    if (loading) {
-        return <p>Loading assets...</p>;
-    }
-
     if (error) {
         return <p>Error: {error}</p>;
     }
 
+    if (loading) {
+        return <span className="loading loading-bars loading-lg"></span>;
+    }
+
     return (
         <div>
+            <Helmet>
+                <title>AssetList</title>
+            </Helmet>
             <div className="md:text-center">
                 <div className="my-7">
                     <input
@@ -124,7 +132,7 @@ const AssetList = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {filteredAndSortedAssets.length > 0 ? (
                         filteredAndSortedAssets.map(asset => (
-                            <AssetCard key={asset._id} asset={asset}  onDelete = {handleDelete}/>
+                            <AssetCard key={asset._id} asset={asset} onDelete={handleDelete} />
                         ))
                     ) : (
                         <p>No assets found</p>

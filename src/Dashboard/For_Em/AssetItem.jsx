@@ -6,20 +6,23 @@ const AssetItem = ({ asset }) => {
     const { user } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [additionalNotes, setAdditionalNotes] = useState("");
-    const [data, setData] = useState('');
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true); // Add a loading state
 
-    /// load data
     useEffect(() => {
         if (user) {
             fetch(`http://localhost:5000/users/${user.email}`)
                 .then(res => res.json())
-                .then(data => setData(data))
+                .then(data => {
+                    setData(data);
+                    setLoading(false); // Set loading to false after data is fetched
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    setLoading(false); // Also set loading to false in case of error
+                });
         }
-
-    }, [])
-
-
-    
+    }, [user]);
 
     const handleRequestClick = () => {
         if (Product_Quantity > 0) {
@@ -34,17 +37,17 @@ const AssetItem = ({ asset }) => {
 
     const handleRequestSubmit = () => {
         const requestData = {
-            Asset_image : Asset_image,
-            Asset_name : Product_name,
-            Asset_type : Product_type,
-            useName : data.name,
+            Asset_image: Asset_image,
+            Asset_name: Product_name,
+            Asset_type: Product_type,
+            useName: data.name,
             userEmail: user.email,
             requestDate: new Date().toISOString(),
             additionalNotes: additionalNotes,
-            requestStatus : 'pending'
+            requestStatus: 'pending',
+            Company_name: data.Company_name
         };
 
-        // Make the API call to submit the request (replace the URL with your API endpoint)
         fetch('http://localhost:5000/requestAsset', {
             method: 'POST',
             headers: {
@@ -60,6 +63,14 @@ const AssetItem = ({ asset }) => {
             .catch(error => console.error('Error submitting request:', error));
     };
 
+    if (loading) {
+        return <div>Loading...</div>; // Show loading state
+    }
+
+    if (!data) {
+        return <div>No data available</div>; // Show message if data is not available
+    }
+
     return (
         <div>
             <div className="card bg-purple-800 text-white shadow-2xl">
@@ -73,9 +84,9 @@ const AssetItem = ({ asset }) => {
                         <h3><span className="font-semibold text-[18px]">Quantity:</span> {Product_Quantity}</h3>
                     </div>
                     <div className="py-6">
-                        <button 
-                            className="btn" 
-                            onClick={handleRequestClick} 
+                        <button
+                            className="btn"
+                            onClick={handleRequestClick}
                             disabled={Product_Quantity === 0}
                         >
                             Request

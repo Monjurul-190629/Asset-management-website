@@ -5,6 +5,8 @@ import RequestCard from "../All_requests.jsx/RequestCard";
 import AssetCard from "../../For_HR/Add_an_asset/AssestList.jsx/AssetCard";
 import CalendarComponent from "../../For_Em/CalendarComponent";
 import ThankYouComponent from "./ThankYouComponent";
+import { Helmet } from "react-helmet";
+import useAuth from "../../../Hooks/useAuth";
 
 const Home1 = () => {
     const [assets, setAssets] = useState([]);
@@ -14,22 +16,30 @@ const Home1 = () => {
     const [returnableItems, setReturnableItems] = useState(0);
     const [nonReturnableItems, setNonReturnableItems] = useState(0);
 
-    useEffect(() => {
-        fetchAssets();
-    }, []);
+    const { user } = useAuth();
+    const [data, setData] = useState(null);
 
-    const fetchAssets = () => {
-        setLoading(true);
+    useEffect(() => {
+        if (user && user.email) {
+            fetch(`http://localhost:5000/users/${user.email}`)
+                .then(res => res.json())
+                .then(data => setData(data))
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name);
+        }
+    }, [data]);
+
+    const fetchAssets = (companyName) => {
         fetch('http://localhost:5000/requestAsset')
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch assets');
-                }
-                return res.json();
-            })
-            .then(data => {
-                setAssets(data);
-                calculateReturnable(data);
+            .then(res => res.json())
+            .then(dat => {
+                const filtered = dat.filter(asset => asset.Company_name === companyName);
+                setAssets(filtered);
                 setLoading(false);
             })
             .catch(error => {
@@ -38,34 +48,70 @@ const Home1 = () => {
                 setLoading(false);
             });
     };
+    
+    useEffect(() => {
+        if (data && data.Company_name) {
+            fetchAssets1(data.Company_name);
+        }
+    }, [data]);
+
+    const fetchAssets1 = (companyName) => {
+        fetch('http://localhost:5000/assets')
+            .then(res => res.json())
+            .then(dat => {
+                const filtered = dat.filter(asset => (asset.Company_name === companyName && asset.Product_Quantity < 10 && asset.Product_Quantity > 0) );
+                setAssets1(filtered);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching assets:', error);
+                setError(error.message);
+                setLoading(false);
+            });
+    };
+    
+
+
+
+
+    
 
     const handleDelete = () => {
-        fetchAssets(); // Re-fetch assets after deletion
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
+        }
     };
 
     const handleUpdate = () => {
-        fetchAssets(); // Re-fetch assets after an update
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
+        } // Re-fetch assets after an update
     };
 
-    useEffect(() => {
-        fetch('http://localhost:5000/requestAsset')
-            .then(res => res.json())
-            .then(data => {
-                const filtered = data.filter(asset => asset.requestStatus === 'pending');
-                setAssets(filtered);
-            })
-            .catch(error => console.error('Error fetching users:', error));
-    }, []);
 
-    useEffect(() => {
+    
+    const fetchc = (companyName) => {
         fetch('http://localhost:5000/assets')
             .then(res => res.json())
-            .then(data => {
-                const filtered = data.filter(asset => (asset.Product_Quantity > 0 && asset.Product_Quantity < 10));
+            .then(dat => {
+                const filtered = dat.filter(asset => asset.Company_name === companyName);
                 setAssets1(filtered);
+                setLoading(false);
+                calculateReturnable(data);
             })
-            .catch(error => console.error('Error fetching users:', error));
-    }, []);
+            .catch(error => {
+                console.error('Error fetching assets:', error);
+                setError(error.message);
+                setLoading(false);
+            });
+    };
+
+   
+    
+
+    
+    
+
 
     const calculateReturnable = (data) => {
         const returnable = data.filter(asset => asset.Product_type === 'Returnable').length;
@@ -95,6 +141,9 @@ const Home1 = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Home</title>
+            </Helmet>
             <div>
                 <SectionTitle heading={`Pending Request : ${assets.length}`} ></SectionTitle>
             </div>

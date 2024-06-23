@@ -1,36 +1,54 @@
 import { useEffect, useState } from "react";
 import AssetItem from "./AssetItem";
-
+import { Helmet } from "react-helmet";
+import useAuth from "../../Hooks/useAuth";
 
 const Request_for_asset = () => {
-
     const [assets, setAssets] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [stockFilter, setStockFilter] = useState("all");
     const [typeFilter, setTypeFilter] = useState("all");
- 
+    const [data, setData] = useState(null);
+
+    const { user } = useAuth();
 
     useEffect(() => {
-        fetch('http://localhost:5000/assets')
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch assets');
-                }
-                return res.json();
-            })
-            .then(data => {
-                setAssets(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching assets:', error);
-                setError(error.message);
-                setLoading(false);
-            });
-    }, []);
+        if (user) {
+            fetch(`http://localhost:5000/users/${user.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setData(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    setError(error.message);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
+    }, [user]);
 
+    useEffect(() => {
+        if (data?.Company_name) {
+            fetch('http://localhost:5000/assets')
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Failed to fetch assets');
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    setAssets(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching assets:', error);
+                    setError(error.message);
+                });
+        }
+    }, [data?.Company_name]);
 
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
@@ -44,26 +62,27 @@ const Request_for_asset = () => {
         setTypeFilter(e.target.value);
     };
 
-    
-
-    // Filter and sort assets based on current state
     const filteredAndSortedAssets = assets.filter(asset => {
         const nameMatch = asset.Product_name.toLowerCase().includes(searchTerm.toLowerCase());
         const stockMatch = stockFilter === "all" || (stockFilter === "available" && asset.Product_Quantity > 0) || (stockFilter === "out-of-stock" && asset.Product_Quantity === 0);
         const typeMatch = typeFilter === "all" || (typeFilter === "returnable" && asset.Product_type === "Returnable") || (typeFilter === "non-returnable" && asset.Product_type === "Non-returnable");
 
         return nameMatch && stockMatch && typeMatch;
-    })
+    });
 
     if (loading) {
-        return <p>Loading assets...</p>;
+        return <p>Loading...</p>;
     }
 
     if (error) {
         return <p>Error: {error}</p>;
     }
+
     return (
         <div>
+            <Helmet>
+                <title>Request for an asset</title>
+            </Helmet>
             <div>
                 <div className="md:text-center">
                     <div className="my-7">
@@ -89,7 +108,6 @@ const Request_for_asset = () => {
                             <option value="non-returnable">Non-returnable</option>
                         </select>
                     </div>
-                    
                 </div>
             </div>
             <div>
@@ -97,7 +115,7 @@ const Request_for_asset = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                         {filteredAndSortedAssets.length > 0 ? (
                             filteredAndSortedAssets.map(asset => (
-                                <AssetItem key={asset._id} asset={asset}  />
+                                <AssetItem key={asset._id} asset={asset} />
                             ))
                         ) : (
                             <p>No assets found</p>

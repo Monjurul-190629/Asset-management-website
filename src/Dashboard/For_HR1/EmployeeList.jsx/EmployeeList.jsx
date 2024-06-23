@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet";
 
 const EmployeeList = () => {
     const [employee, setEmployee] = useState(0);
@@ -90,6 +91,9 @@ const EmployeeList = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>My Employee List</title>
+            </Helmet>
             <div className="text-center pt-10">
                 <h3 className="text-2xl font-semibold">Number of the Employees: {employee}</h3>
             </div>

@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import SectionTitle from "../../Shared/SectionTitle";
+import { Helmet } from "react-helmet";
 
 
 const Package = () => {
     return (
         <div className="mt-20">
+            <Helmet>
+                <title>Package</title>
+            </Helmet>
             <SectionTitle heading={'Package'}></SectionTitle>
             <div className="flex flex-col md:flex-row gap-10 justify-center items-center">
                 <div className="card w-96 bg-purple-400 shadow-xl">

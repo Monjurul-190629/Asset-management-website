@@ -3,6 +3,7 @@ import SectionTitle from "../../Shared/SectionTitle";
 import { Elements } from "@stripe/react-stripe-js";
 import { useLocation } from 'react-router-dom';
 import CheckoutForm from "./CheckOutForm";
+import { Helmet } from "react-helmet";
 
 
 const Payment = () => {
@@ -17,6 +18,9 @@ const Payment = () => {
     
     return (
         <div className="pt-20">
+            <Helmet>
+                <title>Payment</title>
+            </Helmet>
             <div>
                 <SectionTitle heading={'Payment'}></SectionTitle>
             </div>

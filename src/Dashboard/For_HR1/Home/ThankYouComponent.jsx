@@ -7,7 +7,7 @@ const ThankYouComponent = () => {
                 <div className="bg-purple-800 p-8 rounded-lg shadow-md ">
                     <h2 className="text-2xl font-semibold mb-4">Thank You!</h2>
                     <p className="text-lg mb-4">
-                        Thank you for choosing <span className="text-xl font-semibold">Sevice-provider-website</span> for your service needs.
+                        Thank you for choosing <span className="text-xl font-semibold">SeviceSpectrum</span> for your service needs.
                         Your satisfaction is our priority, and we are glad to assist you.
                     </p>
                     <p className="text-white">

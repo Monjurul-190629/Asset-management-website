@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet";
 
 
 const Myteam = () => {
@@ -37,6 +38,9 @@ const Myteam = () => {
     
     return (
         <div>
+            <Helmet>
+                <title>My team</title>
+            </Helmet>
             <div className="text-center pt-10">
                 <h3 className="text-2xl font-semibold">Total team members: {users.length}</h3>
             </div>

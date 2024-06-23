@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 
 const Profile = () => {
@@ -65,6 +66,9 @@ const Profile = () => {
 
     return (
         <div className="flex flex-col justify-center items-center">
+            <Helmet>
+                <title>Update Profile</title>
+            </Helmet>
             <div className="pt-10">
                 <h3 className="text-2xl md:text-3xl font-semibold md:font-serif underline">Update your Information</h3>
             </div>

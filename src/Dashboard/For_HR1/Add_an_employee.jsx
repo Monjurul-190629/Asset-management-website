@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 
 const Add_an_employee = () => {
     const [limit, setLimit] = useState(0);
@@ -9,8 +11,21 @@ const Add_an_employee = () => {
     const { user } = useAuth();
     const [data, setData] = useState([]);
 
+    const navigate = useNavigate();
+
+
+    const handleShow = () => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Your Package Limit is 0 .. So you have to Buy our package Limit',
+            icon: 'danger',
+            confirmButtonText: 'Package page'
+        })
+        navigate('/Dashboard/package')
+    }
+
     useEffect(() => {
-        fetch('http://localhost:5000/companyHolder')
+        fetch(`http://localhost:5000/companyHolder/${user.email}`)
             .then(res => res.json())
             .then(data => setLimit(data[0].limit))
             .catch(error => console.error('Error fetching company holder data:', error));
@@ -89,6 +104,9 @@ const Add_an_employee = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Add an Employee</title>
+            </Helmet>
             <div className="flex flex-col justify-center items-center gap-10">
                 <div className="text-2xl font-semibold">
                     Total Employee: {employee}
@@ -125,7 +143,13 @@ const Add_an_employee = () => {
                                         </td>
                                         <td>{user.name}</td>
                                         <td>
-                                            <button onClick={() => handleAddTeam(user)} className="py-1 px-2 bg-purple-800 text-white rounded-lg">Add team</button>
+                                            {
+                                                limit === 0 ? <>
+                                                <button onClick = {handleShow} className="py-1 px-2 bg-slate-800 text-white rounded-lg">Add me</button>
+                                                </> : <>
+                                                <button onClick={() => handleAddTeam(user)} className="py-1 px-2 bg-purple-800 text-white rounded-lg">Add team</button>
+                                                </>
+                                            }
                                         </td>
                                     </tr>
                                 ))

@@ -10,46 +10,47 @@ const Myassets = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [stockFilter, setStockFilter] = useState("all");
     const [typeFilter, setTypeFilter] = useState("all");
+
+
     const { user } = useAuth();
-    const [companyName, setCompanyName] = useState('');
+    const [data, setData] = useState(null);
 
     useEffect(() => {
         if (user && user.email) {
-            fetch('http://localhost:5000/users')
+            fetch(`http://localhost:5000/users/${user.email}`)
                 .then(res => res.json())
-                .then(data => {
-                    if (data.length > 0 && data[0].Company_name) {
-                        setCompanyName(data[0].Company_name); // Assuming Company_name is in the first object
-                    }
-                })
-                .catch(error => console.error('Error fetching company holder data:', error));
+                .then(data => setData(data))
+                .catch(error => console.error('Error fetching user data:', error));
         }
-    }, [user]); // Dependency array to ensure useEffect runs when user changes
+    }, [user]);
 
     useEffect(() => {
-        fetchAssets();
-    }, [user]); // Dependency array to ensure useEffect runs when user changes
-
-    const fetchAssets = () => {
-        if (user && user.email) {
-            fetch('http://localhost:5000/requestAsset')
-                .then(res => res.json())
-                .then(data => {
-                    const filtered = data.filter(asset => asset.userEmail === user.email);
-                    setAssets(filtered);
-                    setLoading(false);
-                })
-                .catch(error => {
-                    console.error('Error fetching assets:', error);
-                    setError(error.message);
-                    setLoading(false);
-                });
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name);
         }
+    }, [data]);
+
+    const fetchAssets = (companyName) => {
+        fetch('http://localhost:5000/requestAsset')
+            .then(res => res.json())
+            .then(dat => {
+                const filtered = dat.filter(asset => (asset.Company_name === companyName && asset.userEmail === user.email) );
+                setAssets(filtered);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching assets:', error);
+                setError(error.message);
+                setLoading(false);
+            });
     };
 
     const handleDelete = () => {
-        fetchAssets(); // Example: You may need to implement logic to update assets state
+        if (data && data.Company_name) {
+            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
+        }
     };
+
 
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
@@ -85,7 +86,7 @@ const Myassets = () => {
             <Helmet>
                 <title>My Requested Assets</title>
             </Helmet>
-            {companyName && (
+            {data.Company_name && (
                 <div className="md:text-center">
                     <div className="my-7">
                         <input
