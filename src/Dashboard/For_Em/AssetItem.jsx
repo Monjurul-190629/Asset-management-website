@@ -11,7 +11,7 @@ const AssetItem = ({ asset }) => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setData(data);
@@ -48,7 +48,7 @@ const AssetItem = ({ asset }) => {
             Company_name: data.Company_name
         };
 
-        fetch('http://localhost:5000/requestAsset', {
+        fetch('https://service-provider-website-server.vercel.app/requestAsset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

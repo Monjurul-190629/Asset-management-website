@@ -27,7 +27,7 @@ const UpdateData = () => {
 
 
         // now fetch
-        fetch(`http://localhost:5000/assets/${_id}`, {
+        fetch(`https://service-provider-website-server.vercel.app/assets/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",

@@ -13,7 +13,7 @@ const Home3 = () => {
     /// load data
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => setData(data))
         }

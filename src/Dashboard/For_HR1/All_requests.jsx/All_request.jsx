@@ -14,7 +14,7 @@ const AllRequest = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching user data:', error));
@@ -28,7 +28,7 @@ const AllRequest = () => {
     }, [data]);
 
     const fetchAssets = (companyName) => {
-        fetch('http://localhost:5000/requestAsset')
+        fetch('https://service-provider-website-server.vercel.app/requestAsset')
             .then(res => res.json())
             .then(dat => {
                 const filtered = dat.filter(asset => asset.Company_name === companyName);

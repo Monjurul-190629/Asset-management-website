@@ -108,7 +108,7 @@ export const router = createBrowserRouter([
             {
                 path : "UpdateData/:id",
                 element : <UpdateData></UpdateData>,
-                loader : ({params}) => fetch(`http://localhost:5000/assets/${params.id}`)
+                loader : ({params}) => fetch(`https://service-provider-website-server.vercel.app/assets/${params.id}`)
               },
             /// for employee
             {

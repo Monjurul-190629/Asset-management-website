@@ -25,14 +25,16 @@ const Add_an_employee = () => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:5000/companyHolder/${user.email}`)
+        fetch(`https://service-provider-website-server.vercel.app/companyHolder/${user.email}`)
             .then(res => res.json())
-            .then(data => setLimit(data[0].limit))
+            .then(dat => setLimit(dat.limit))
             .catch(error => console.error('Error fetching company holder data:', error));
     }, []);
 
+    console.log(limit)
+
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://service-provider-website-server.vercel.app/users')
             .then(res => res.json())
             .then(data => {
                 const filtered = data.filter(user => user.Company_name === null);
@@ -43,7 +45,7 @@ const Add_an_employee = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching user data:', error));
@@ -52,7 +54,7 @@ const Add_an_employee = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`http://localhost:5000/companyHolder/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/companyHolder/${user.email}`)
                 .then(res => res.json())
                 .then(d => setEmployee(d.Employee_count))
                 .catch(error => console.error('Error fetching company holder data:', error));
@@ -60,7 +62,7 @@ const Add_an_employee = () => {
     }, [user]);
 
     const handleAddTeam = (u1) => {
-        fetch(`http://localhost:5000/users/${u1._id}`, {
+        fetch(`https://service-provider-website-server.vercel.app/users/${u1._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -85,7 +87,7 @@ const Add_an_employee = () => {
                 setLimit(prevLimit => prevLimit - 1);
                 setEmployee(prev => prev + 1);
 
-                fetch(`http://localhost:5000/companyHolder/${user.email}`, {
+                fetch(`https://service-provider-website-server.vercel.app/companyHolder/${user.email}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'

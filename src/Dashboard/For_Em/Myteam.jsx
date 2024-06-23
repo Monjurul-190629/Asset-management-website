@@ -14,7 +14,7 @@ const Myteam = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching user data:', error));
@@ -23,7 +23,7 @@ const Myteam = () => {
 
     useEffect(() => {
         if (data.Company_name) {
-            fetch('http://localhost:5000/users')
+            fetch('https://service-provider-website-server.vercel.app/users')
                 .then(res => res.json())
                 .then(dat => {
                     const filtered = dat.filter(user => (user.Company_name === data.Company_name) && (user.role === 'employee'));

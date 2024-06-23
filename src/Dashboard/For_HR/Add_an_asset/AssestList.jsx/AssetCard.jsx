@@ -17,7 +17,7 @@ const AssetCard = ({ asset, onDelete }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/assets/${id}`, {
+                fetch(`https://service-provider-website-server.vercel.app/assets/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

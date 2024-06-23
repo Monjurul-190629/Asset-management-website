@@ -16,7 +16,7 @@ const Request_for_asset = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setData(data);
@@ -33,7 +33,7 @@ const Request_for_asset = () => {
 
     useEffect(() => {
         if (data?.Company_name) {
-            fetch('http://localhost:5000/assets')
+            fetch('https://service-provider-website-server.vercel.app/assets')
                 .then(res => {
                     if (!res.ok) {
                         throw new Error('Failed to fetch assets');

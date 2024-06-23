@@ -39,19 +39,21 @@ const CheckoutForm = ({ value }) => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/companyHolder')
+        fetch(`https://service-provider-website-server.vercel.app/companyHolder/${user.email}`)
             .then(res => res.json())
             .then(data => {
-                setLimit(data[0].limit)
+                setLimit(data.limit)
             })
     }, [])
+
+
 
 
     console.log(limit)
     
     /// for the employee
     useEffect(() => {
-        fetch(`http://localhost:5000/companyHolder/${user.email}`)
+        fetch(`https://service-provider-website-server.vercel.app/companyHolder/${user.email}`)
             .then(res => res.json())
             .then(d => {
                 setEmployee(d.Employee_count)

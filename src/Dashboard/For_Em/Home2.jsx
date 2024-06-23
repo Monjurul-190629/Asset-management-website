@@ -13,7 +13,7 @@ const Home2 = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch('http://localhost:5000/users')
+            fetch('https://service-provider-website-server.vercel.app/users')
                 .then(res => res.json())
                 .then(data => setData(data))
                 .catch(error => console.error('Error fetching company holder data:', error));
@@ -25,7 +25,7 @@ const Home2 = () => {
     }, []);
 
     const fetchAssets = () => {
-        fetch('http://localhost:5000/requestAsset')
+        fetch('https://service-provider-website-server.vercel.app/requestAsset')
             .then(res => res.json())
             .then(data => setAssets(data))
             .catch(error => console.error('Error fetching assets:', error));
@@ -37,7 +37,7 @@ const Home2 = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch('http://localhost:5000/requestAsset')
+            fetch('https://service-provider-website-server.vercel.app/requestAsset')
                 .then(res => res.json())
                 .then(data => {
                     const filtered = data.filter(asset => asset.userEmail === user.email && asset.requestStatus === 'pending');
@@ -49,7 +49,7 @@ const Home2 = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch('http://localhost:5000/requestAsset')
+            fetch('https://service-provider-website-server.vercel.app/requestAsset')
                 .then(res => res.json())
                 .then(data => {
                     const filtered = data.filter(asset => asset.userEmail === user.email);

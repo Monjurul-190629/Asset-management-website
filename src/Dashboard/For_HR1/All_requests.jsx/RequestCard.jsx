@@ -20,7 +20,7 @@ const RequestCard = ({ asset, onDelete }) => {
             ApprovalDate :  new Date().toISOString()
         };
 
-        fetch(`http://localhost:5000/requestAsset/${_id}`, {
+        fetch(`https://service-provider-website-server.vercel.app/requestAsset/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -53,7 +53,7 @@ const RequestCard = ({ asset, onDelete }) => {
             confirmButtonText: "Yes, Reject it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/requestAsset/${id}`, {
+                fetch(`https://service-provider-website-server.vercel.app/requestAsset/${id}`, {
                     method: 'DELETE'
                 })
                 .then(res => res.json())

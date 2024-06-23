@@ -10,7 +10,7 @@ const Add_an_asset = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setData(data);
@@ -48,7 +48,7 @@ const Add_an_asset = () => {
             Product_name, Product_type, Product_Quantity, Asset_image, Date_added, Company_name
         };
 
-        fetch('http://localhost:5000/assets', {
+        fetch('https://service-provider-website-server.vercel.app/assets', {
             method: "POST",
             headers: {
                 "content-type": "application/json",
