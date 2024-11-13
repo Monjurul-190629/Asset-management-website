@@ -10,23 +10,23 @@ const Navbar = () => {
     
     const navLink = <>
         <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/" className="font-semibold"> Home</NavLink>
         </li>
         <li>
-            <NavLink to="/join_as_employee">Join_As_Employee</NavLink>
+            <NavLink to="/join_as_employee" className="font-semibold">Join As Employee</NavLink>
         </li>
         <li>
-            <NavLink to="/join_as_manager">Join_As_HR_Manager</NavLink>
+            <NavLink to="/join_as_manager" className="font-semibold">Join As HR Manager</NavLink>
         </li>
         <li>
-            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/login" className="font-semibold">Login</NavLink>
         </li>
     </>
     
 
     return (
-        <div>
-            <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
+        <div className="py-1">
+            <div className="navbar  font-[20px] ">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -36,9 +36,9 @@ const Navbar = () => {
                             {navLink}
                         </ul>
                     </div>
-                    <div className="flex">
-                        <img src="https://i.ibb.co/FwnDR32/circle-icon-demo-4x.jpg" className="w-16" />
-                        <a className="btn btn-ghost text-xl text-gray-300" style={{ textShadow: '2px 2px 4px rgba(255, 10, 100, 0.7)' }}>ServiceSpectrum</a>
+                    <div className="flex justify-center">
+                        <img src="https://pluspng.com/img-png/logo-template-png-logo-templates-1655.png" className="w-16 rounded-xl" />
+                        <a className=" mt-4 text-xl text-indigo-800" style={{ textShadow: '1px 1px 2px rgba(2, 10, 100, 0.7)' }}>ServiceSpectrum</a>
                     </div>
                 </div>
                 <div className="navbar-end hidden lg:flex">
