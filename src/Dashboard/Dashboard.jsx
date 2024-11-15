@@ -97,7 +97,7 @@ const Dashboard = () => {
                     isManager ?
                         <>
 
-                            <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
+                            <div className="navbar fixed z-30 opacity-80 bg-blue-700 text-white max-w-screen-xl">
                                 <div className="navbar-start">
                                     <div className="dropdown">
                                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -108,7 +108,7 @@ const Dashboard = () => {
                                         </ul>
                                     </div>
                                     <div>
-                                        <img src={data.Company_logo} className="w-16" />
+                                        <img src={data.Company_logo} className="w-16 rounded-xl" />
                                     </div>
                                     <a className="btn btn-ghost text-xl">{data.Company_name}</a>
                                 </div>

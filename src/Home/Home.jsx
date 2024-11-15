@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet";
 import About from "./About";
 import Banner from "./Banner";
 import PackageSection from "./PackageSection";
+import Extra from "./Extra";
 
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
             </Helmet>
             <Banner></Banner>
             <About></About>
+            <Extra></Extra>
             <PackageSection></PackageSection>
         </div>
     );

@@ -100,10 +100,10 @@ const AssetList = () => {
                 <div className="my-7">
                     <input
                         type="text"
-                        placeholder="Search by product name..."
+                        placeholder="Search by product name...."
                         value={searchTerm}
                         onChange={handleSearch}
-                        className="px-3 py-2 border border-gray-300 rounded-lg"
+                        className="px-3 py-2  border-b-2 border-b-slate-700 outline-0 placeholder-slate-600"
                     />
                 </div>
                 <div className="mb-7">

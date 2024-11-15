@@ -6,7 +6,7 @@ const About = () => {
     return (
         <div className="mt-20">
             <SectionTitle heading={'About_our_site'}></SectionTitle>
-            <div className="md:px-20 px-4 py-10  rounded-xl  text-justify">
+            <div className="md:px-20 px-4 py-2  rounded-xl  text-justify">
 
                 <div className="flex flex-col lg:flex-row-reverse gap-5 md:gap-10 md:justify-center">
                     <div className='md:flex-1'>
