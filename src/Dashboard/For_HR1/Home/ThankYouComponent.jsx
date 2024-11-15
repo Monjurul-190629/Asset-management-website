@@ -16,7 +16,7 @@ const ThankYouComponent = () => {
                 </div>
             </div>
             <div>
-                <img src = "https://static.vecteezy.com/system/resources/previews/000/182/450/original/thank-you-typography-vector.jpg" className="w-[500px]"/>
+                <img src = "https://png.pngtree.com/png-clipart/20221220/original/pngtree-thank-you-text-hand-lettering-png-image_8786056.png" className="w-[500px]"/>
             </div>
         </div>
     );

@@ -33,11 +33,11 @@ const PaymentHistory = () => {
 
 
     return (
-        <div className="text-center flex justify-center items-center bg-purple-300 rounded-lg py-20 px-10">
+        <div className="text-center flex justify-center items-center  rounded-lg py-5 px-10">
             <div className="overflow-x-auto text-center font-bold">
                 <table className="table table-zebra">
                     {/* head */}
-                    <thead>
+                    <thead className="text-xl font-semibold underline text-black">
                         <tr>
                             <th>#</th>
                             <th>price</th>

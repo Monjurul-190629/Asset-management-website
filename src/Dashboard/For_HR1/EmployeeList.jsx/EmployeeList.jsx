@@ -101,7 +101,7 @@ const EmployeeList = () => {
                 <div className="flex justify-center items-center py-8">
                     <div className="overflow-x-auto">
                         <table className="table">
-                            <thead>
+                            <thead className="text-xl font-semibold text-black underline">
                                 <tr>
                                     <th></th>
                                     <th>Image</th>
@@ -121,9 +121,9 @@ const EmployeeList = () => {
                                             <td>
                                                 <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[60px] flex justify-center" />
                                             </td>
-                                            <td>{user.name}</td>
+                                            <td className="font-semibold">{user.name}</td>
                                             <td>
-                                                <button onClick={() => handleRemove(user)} className="py-1 px-2 bg-purple-800 text-white rounded-lg">Remove From Team</button>
+                                                <button onClick={() => handleRemove(user)} className="py-2 px-2 bg-purple-700 text-[18px] text-white rounded-lg">Remove From Team</button>
                                             </td>
                                         </tr>
                                     ))

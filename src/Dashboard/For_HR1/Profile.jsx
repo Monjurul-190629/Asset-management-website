@@ -70,21 +70,21 @@ const Profile = () => {
                 <title>Update Profile</title>
             </Helmet>
             <div className="pt-10">
-                <h3 className="text-2xl md:text-3xl font-semibold md:font-serif underline">Update your Information</h3>
+                <h3 className="text-2xl md:text-2xl font-semibold md:font-serif underline ">Update your Information</h3>
             </div>
-            <div className="text-center pt-10">
+            <div className="text-center pt-5">
                 <form className="" onSubmit={handleUpdateData}>
                     <div className="form-group">
-                        <p className="font-bold text-xl mb-2">Full Name : </p>
-                        <input type="text" id="fullName" className="w-full mb-5 p-1 border-black border-b-2 placeholder-gray-900 " name="fullName" placeholder={data.name} />
+                        <p className="font-bold text-[16px] mb-2">Full Name : </p>
+                        <input type="text" id="fullName" className="w-full outline-0 mb-5 p-1 border-black border-b-2 placeholder-gray-900 " name="fullName" placeholder={data.name} />
                     </div>
 
                     <div className="form-group">
-                        <p className="font-bold text-xl mb-2">Email : </p>
+                        <p className="font-bold text-[16px] mb-2">Email : </p>
                         <input type="email" id="email" className="w-[250px] mb-5 p-1 border-black border-b-2 placeholder-gray-900" name="email" placeholder={data.email} readOnly />
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-md">Update</button>
+                    <button type="submit" className="bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-800 ">Update</button>
 
                 </form>
             </div>

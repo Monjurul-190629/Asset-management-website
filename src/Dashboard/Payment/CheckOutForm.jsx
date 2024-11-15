@@ -24,14 +24,14 @@ const CheckoutForm = ({ value }) => {
 
     const [employee, setEmployee] = useState(0);
 
-    
+
 
     let totalPrice = 5;
 
 
     if (value == 2) {
         totalPrice = 8;
-        
+
     }
     else if (value == 3) {
         totalPrice = 15;
@@ -50,7 +50,7 @@ const CheckoutForm = ({ value }) => {
 
 
     console.log(limit)
-    
+
     /// for the employee
     useEffect(() => {
         fetch(`https://service-provider-website-server.vercel.app/companyHolder/${user.email}`)
@@ -74,21 +74,21 @@ const CheckoutForm = ({ value }) => {
 
     }, [axiosSecure, totalPrice])
 
-   
+
     const updateLimit = async () => {
-        
+
         let incrementValue = 5;
-        if(value == 2){
+        if (value == 2) {
             incrementValue = 10;
         }
-        else if(value == 3){
+        else if (value == 3) {
             incrementValue = 20;
         }
 
         try {
             const res = await axiosSecure.put(`/companyHolder/${user.email}`, {
                 limit: incrementValue + limit,
-                Employee_count : employee 
+                Employee_count: employee
             });
             console.log('Limit updated', res.data);
         } catch (error) {
@@ -154,9 +154,9 @@ const CheckoutForm = ({ value }) => {
                     date: new Date(),
 
                 }
-                
 
-                
+
+
 
 
                 const res = await axiosSecure.post('/payments', payment);
@@ -168,7 +168,7 @@ const CheckoutForm = ({ value }) => {
                     title: "Thank you",
                     showConfirmButton: false,
                     timer: 2000,
-                    
+
                 });
                 await updateLimit();
                 navigate('/Dashboard/paymentHistory')
@@ -181,32 +181,48 @@ const CheckoutForm = ({ value }) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
+        <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-lg max-w-md mx-auto">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Payment Details</h2>
+
+            <div className="mb-4">
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: '16px',
+                                fontFamily: 'Arial, sans-serif',
+                                color: '#333',
+                                '::placeholder': {
+                                    color: 'darkblue', // Light gray for placeholder text
+                                },
+                            },
+                            invalid: {
+                                color: '#e53e3e', // Error color
                             },
                         },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
-            <button className="btn btn-md btn-primary my-8" type="submit" disabled={!stripe || !clientSecret} >
+                    }}
+                    className="p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+            </div>
+
+            <button
+                className={`w-full py-2 px-4 text-white font-semibold rounded-md 
+            ${!stripe || !clientSecret ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-400'}`}
+                type="submit"
+                disabled={!stripe || !clientSecret}
+            >
                 Pay
             </button>
 
-            <p className="text-red-800">{error}</p>
+            {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
 
-            {transactionId && <p className="text-green-700"> Your transaction id: {transactionId}</p>}
-
+            {transactionId && (
+                <p className="text-sm text-green-700 mt-2">
+                    Your transaction ID: <span className="font-semibold">{transactionId}</span>
+                </p>
+            )}
         </form>
+
     );
 };
 
