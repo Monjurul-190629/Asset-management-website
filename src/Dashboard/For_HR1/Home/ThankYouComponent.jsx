@@ -14,7 +14,7 @@ const ThankYouComponent = () => {
                     <p className="text-white text-[17px]">
                         If you have any further questions or need assistance, please feel free to contact our manager.
                         <Link to="https://aesthetic-mousse-9f2882.netlify.app/">
-                            <button className="bg-purple-700 border-2 border-slate-200 py-1 px-4  rounded-lg hover:bg-purple-800 hover:text-white hover:border-2 hover:border-slate-300">
+                            <button className="bg-purple-300 text-black border-2 border-slate-200 py-1 px-4  rounded-lg hover:bg-purple-800 hover:text-white hover:border-2 hover:border-slate-300">
                                 Go
                             </button>
                         </Link>

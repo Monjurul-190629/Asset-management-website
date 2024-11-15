@@ -13,8 +13,7 @@ const Home1 = () => {
     const [assets1, setAssets1] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [returnableItems, setReturnableItems] = useState(0);
-    const [nonReturnableItems, setNonReturnableItems] = useState(0);
+    const [pieData, setPieData] = useState([]);
 
     const { user } = useAuth();
     const [data, setData] = useState(null);
@@ -34,12 +33,15 @@ const Home1 = () => {
         }
     }, [data]);
 
+    
+
     const fetchAssets = (companyName) => {
         fetch('https://service-provider-website-server.vercel.app/requestAsset')
             .then(res => res.json())
             .then(dat => {
                 const filtered = dat.filter(asset => asset.Company_name === companyName);
                 setAssets(filtered);
+                console.log(filtered)
                 setLoading(false);
             })
             .catch(error => {
@@ -48,10 +50,11 @@ const Home1 = () => {
                 setLoading(false);
             });
     };
-    
+
     useEffect(() => {
         if (data && data.Company_name) {
             fetchAssets1(data.Company_name);
+            fetchc(data.Company_name)
         }
     }, [data]);
 
@@ -59,7 +62,7 @@ const Home1 = () => {
         fetch('https://service-provider-website-server.vercel.app/assets')
             .then(res => res.json())
             .then(dat => {
-                const filtered = dat.filter(asset => (asset.Company_name === companyName && asset.Product_Quantity < 10 && asset.Product_Quantity > 0) );
+                const filtered = dat.filter(asset => (asset.Company_name === companyName && asset.Product_Quantity < 10 && asset.Product_Quantity >= 0));
                 setAssets1(filtered);
                 setLoading(false);
             })
@@ -69,12 +72,12 @@ const Home1 = () => {
                 setLoading(false);
             });
     };
-    
 
 
 
 
-    
+
+
 
     const handleDelete = () => {
         if (data && data.Company_name) {
@@ -89,47 +92,53 @@ const Home1 = () => {
     };
 
 
-    
+
     const fetchc = (companyName) => {
         fetch('https://service-provider-website-server.vercel.app/assets')
-            .then(res => res.json())
-            .then(dat => {
-                const filtered = dat.filter(asset => asset.Company_name === companyName);
-                setAssets1(filtered);
+            .then((res) => res.json())
+            .then((dat) => {
+                const filtered = dat.filter(
+                    (asset) => asset.Company_name === companyName
+                );
+            
+
+                // Categorize assets based on Product_type
+                const returnableCount = filtered.filter(
+                    (asset) => asset.Product_type === 'Returnable'
+                ).length;
+                const nonReturnableCount = filtered.filter(
+                    (asset) => asset.Product_type === 'Non-returnable'
+                ).length;
+                
+                console.log(returnableCount)
+                console.log(nonReturnableCount)
+                // Prepare pie chart data
+                const chartData = [
+                    { name: 'Returnable', value: returnableCount },
+                    { name: 'Non-Returnable', value: nonReturnableCount },
+                ];
+                setPieData(chartData);
                 setLoading(false);
-                calculateReturnable(data);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error fetching assets:', error);
                 setError(error.message);
                 setLoading(false);
             });
     };
 
-   
-    
+
+
+
+
+
+
+
+
+
+    const COLORS = ['rgb(240, 90, 120)', 'rgb(100, 10, 220)'];
 
     
-    
-
-
-    const calculateReturnable = (data) => {
-        const returnable = data.filter(asset => asset.Product_type === 'Returnable').length;
-        const nonReturnable = data.filter(asset => asset.Product_type === 'Non-returnable').length;
-        setReturnableItems(returnable);
-        setNonReturnableItems(nonReturnable);
-        console.log("Returnable Items:", returnable);
-        console.log("Non-Returnable Items:", nonReturnable);
-    };
-
-    const pieData = [
-        { name: 'Returnable', value: returnableItems },
-        { name: 'Non-Returnable', value: nonReturnableItems },
-    ];
-
-    console.log("Pie Data:", pieData);
-
-    const COLORS = ['#0088FE', '#FF8042'];
 
     if (loading) {
         return <p>Loading assets...</p>;
@@ -177,15 +186,38 @@ const Home1 = () => {
                     }
                 </div>
             </div>
-            <div className="pt-20">
-                <SectionTitle heading="Returnable vs Non-Returnable Items"></SectionTitle>
-                
+
+
+
+            <div className="flex justify-center font-serif pt-20 text-3xl font-semibold">
+                Product Type
+            </div>
+
+            <div className="flex justify-center items-center mt-3" style={{ width: '100%', height: 400 }}>
+            
+                <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                        <Pie
+                            data={pieData}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            outerRadius={150}
+                            fill="#8884d8"
+                            dataKey="value"
+                        >
+                            {pieData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                    </PieChart>
+                </ResponsiveContainer>
+            </div>
+            <div className="pt-2">
                 <div className="pt-20">
-                    <SectionTitle heading="Calendar"></SectionTitle>
-                    <CalendarComponent />
-                </div>
-                <div className="pt-20">
-                   <ThankYouComponent></ThankYouComponent>
+                    <ThankYouComponent></ThankYouComponent>
                 </div>
             </div>
         </div>
