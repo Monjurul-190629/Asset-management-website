@@ -42,7 +42,7 @@ const AssetCard = ({ asset, onDelete }) => {
             <div className="card bg-blue-200 border-2 border-slate-500 text-white shadow-2xl px-5 py-5">
                 <div className="bg-blue-700 rounded-lg hover:duration-700 hover:-translate-y-5">
                     <figure className="px-6 pt-6">
-                        <img src={Asset_image} alt="product" className="rounded-xl w-[280px] h-[200px]" />
+                        <img src={Asset_image} alt="product" className=" w-[290px] h-[200px]  rounded-lg" />
                     </figure>
                     <div className="card-body text-justify font-normal">
                         <h2 className="card-title flex justify-center text-2xl font-bold -mt-5">{Product_name}</h2>
