@@ -116,7 +116,7 @@ const Add_an_employee = () => {
                 <div className="text-2xl font-semibold">
                     <span className="pr-5">Package limit: {limit}</span>
                     <Link to="/Dashboard/Package">
-                        <button className="bg-purple-700 py-1 px-2 rounded-xl text-[16px] text-white">Increase limit</button>
+                        <button className="bg-blue-700 py-1 px-2 rounded-xl text-[16px] text-white">Increase limit</button>
                     </Link>
                 </div>
             </div>
@@ -124,7 +124,7 @@ const Add_an_employee = () => {
                 <div className="overflow-x-auto">
                     <table className="table">
                         <thead>
-                            <tr>
+                            <tr className="font-semibold text-xl underline text-black">
                                 <th></th>
                                 <th>Image</th>
                                 <th>Name</th>

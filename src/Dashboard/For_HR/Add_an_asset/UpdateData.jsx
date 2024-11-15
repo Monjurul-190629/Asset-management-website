@@ -52,34 +52,30 @@ const UpdateData = () => {
     return (
         <div>
             <Helmet>
-                <title>Update Asset</title>
+                <title>Add an asset</title>
             </Helmet>
-            <div>
-                <div className="bg-purple-400 my-20 py-10 rounded-3xl">
-                    <h2 className="text-center font-bold text-3xl">Update an Asset</h2>
-                    <div className="flex justify-center py-10 mx-10 md:mx-0">
-                        <form className="text-justify grid md:grid-cols-2 gap-10 md:gap-20 font-bold text-gray-900" onSubmit={handleUpdate}>
-
-                            <div className="flex justify-between">
-                                <label>Product name: </label>
-                                <input type="text" name="Product_name" defaultValue={Product_name} className="py-2 px-2 rounded-md" />
+            <div className="my-10 py-5 flex justify-center">
+                <div className="border-2 border-slate-500 w-[320px] lg:w-[550px] pt-10 md:px-12 rounded-lg">
+                    <h2 className="text-center font-semibold text-2xl">Update Asset Data</h2>
+                    <div className="flex justify-center pt-5 pb-8 lg:pb-12 mx-10 md:mx-0">
+                        <form className="text-justify flex flex-col justify-center items-center gap-10 md:gap-10 font-bold text-gray-900" onSubmit={handleUpdate}>
+                            <div className="grid lg:grid-cols-2 gap-10 justify-center items-center">
+                                <div className="flex justify-between">
+                                    <input type="text" name="Product_name" placeholder="Product name" defaultValue = {Product_name} className="py-2 border-b-2 border-slate-600 placeholder-slate-500 outline-0" required />
+                                </div>
+                                <div className="flex md:justify-between">
+                                    <input type="text" name="Asset_image" placeholder="Asset Image Url" defaultValue = {Asset_image} className="py-2 border-b-2 border-slate-600 placeholder-slate-500 outline-0" required />
+                                </div>
+                                <div className="flex md:justify-between">
+                                    <input type="text" name="Product_type" placeholder="Product Type" defaultValue = {Product_type} className="py-2 border-b-2 border-slate-600 placeholder-slate-500 outline-0" required />
+                                </div>
+                                <div className="flex justify-between">
+                                    <input type="number" name="Product_Quantity" placeholder="Product Quantity" defaultValue = {Product_Quantity} className="py-2 border-b-2 border-slate-600 placeholder-slate-500 outline-0" required />
+                                </div>
                             </div>
-                            <div className="flex md:justify-between">
-                                <label>Image URL:</label>
-                                <input type="text" name="Asset_image" defaultValue={Asset_image} className="py-2 px-2 rounded-md" />
+                            <div className="w-full">
+                                <input type="submit" value="ADD" className="w-full py-1 bg-blue-600 text-white rounded-md hover:text-black  hover:bg-transparent hover:border-2 hover:border-black" />
                             </div>
-                            <div className="flex md:justify-between">
-                                <label>Product type:</label>
-                                <input type="text" name="Product_type" defaultValue={Product_type} className="py-2 px-2 rounded-md" />
-                            </div>
-
-
-                            <div className="flex justify-between">
-                                <label>Product Quantity: </label>
-                                <input type="number" name="Product_Quantity" defaultValue={Product_Quantity} className="py-2 px-2 rounded-md" />
-                            </div>
-
-                            <input type="submit" value="UPDATE" className="w-full bg-slate-300 rounded-md hover:text-white hover:bg-transparent hover:border-2 hover:border-white" />
                         </form>
                     </div>
                 </div>
