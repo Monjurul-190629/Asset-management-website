@@ -116,7 +116,7 @@ const Add_an_employee = () => {
                 <div className="text-2xl font-semibold">
                     <span className="pr-5">Package limit: {limit}</span>
                     <Link to="/Dashboard/Package">
-                        <button className="bg-blue-700 py-1 px-2 rounded-xl text-[16px] text-white">Increase limit</button>
+                        <button className="bg-blue-700 hover:bg-blue-800 py-1 px-2 rounded-md text-[16px] text-white">Increase limit</button>
                     </Link>
                 </div>
             </div>
@@ -143,13 +143,13 @@ const Add_an_employee = () => {
                                         <td>
                                             <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[60px] flex justify-center" />
                                         </td>
-                                        <td>{user.name}</td>
+                                        <td className="font-semibold">{user.name}</td>
                                         <td>
                                             {
                                                 limit === 0 ? <>
-                                                <button onClick = {handleShow} className="py-1 px-2 bg-slate-800 text-white rounded-lg">Add me</button>
+                                                <button onClick = {handleShow} className="py-1 px-2 bg-slate-900 font-semibold text-white rounded-lg">Add me</button>
                                                 </> : <>
-                                                <button onClick={() => handleAddTeam(user)} className="py-1 px-2 bg-purple-800 text-white rounded-lg">Add team</button>
+                                                <button onClick={() => handleAddTeam(user)} className="py-2 px-2 bg-purple-700 hover:bg-purple-800 text-white rounded-lg">Add team</button>
                                                 </>
                                             }
                                         </td>
