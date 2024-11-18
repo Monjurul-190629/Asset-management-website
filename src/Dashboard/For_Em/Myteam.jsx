@@ -48,7 +48,7 @@ const Myteam = () => {
                 <div className="flex justify-center items-center py-8">
                     <div className="overflow-x-auto">
                         <table className="table">
-                            <thead>
+                            <thead className="text-xl font-semibold text-black">
                                 <tr>
                                    
                                     <th>Image</th>
@@ -64,7 +64,7 @@ const Myteam = () => {
                                             <td>
                                                 <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[60px] flex justify-center" />
                                             </td>
-                                            <td>{user.name}</td>
+                                            <td className="text-slate-900">{user.name}</td>
                                             
                                         </tr>
                                     ))

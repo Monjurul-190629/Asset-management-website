@@ -73,24 +73,26 @@ const AssetItem = ({ asset }) => {
 
     return (
         <div>
-            <div className="card bg-purple-800 text-white shadow-2xl">
-                <figure className="px-10 pt-10">
-                    <img src={Asset_image} alt="product" className="rounded-xl w-[350px] h-[200px]" />
-                </figure>
-                <div className="card-body items-center text-center">
-                    <h2 className="card-title underline">{Product_name}!</h2>
-                    <div className="flex justify-evenly gap-10 items-center pt-5">
-                        <h3><span className="font-semibold text-[18px]">Type:</span> {Product_type}</h3>
-                        <h3><span className="font-semibold text-[18px]">Quantity:</span> {Product_Quantity}</h3>
-                    </div>
-                    <div className="py-6">
-                        <button
-                            className="btn"
-                            onClick={handleRequestClick}
-                            disabled={Product_Quantity === 0}
-                        >
-                            Request
-                        </button>
+            <div className="bg-blue-200 border-2 border-slate-600 rounded-lg px-4 py-4">
+                <div className="card bg-blue-800 text-white shadow-2xl px-3 py-2 ">
+                    <figure className="px-5 pt-5">
+                        <img src={Asset_image} alt="product" className="rounded-xl w-[300px] h-[200px]" />
+                    </figure>
+                    <div className="card-body text-justify">
+                        <h2 className="card-title underline">{Product_name}!</h2>
+                        <div className="text-justify pt-5">
+                            <h3><span className="font-semibold text-[18px]">Type:</span> {Product_type}</h3>
+                            <h3><span className="font-semibold text-[18px]">Quantity:</span> {Product_Quantity}</h3>
+                        </div>
+                        <div className="py-1">
+                            <button
+                                className="btn"
+                                onClick={handleRequestClick}
+                                disabled={Product_Quantity === 0}
+                            >
+                                Request
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

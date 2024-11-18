@@ -139,7 +139,7 @@ const Dashboard = () => {
                         </> :
                         <>
 
-                            <div className="navbar fixed z-30 opacity-80 bg-purple-800 text-white max-w-screen-xl">
+                            <div className="navbar fixed z-30 opacity-80 bg-purple-900 text-white max-w-screen-xl">
                                 <div className="navbar-start">
                                     <div className="dropdown">
                                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -151,7 +151,7 @@ const Dashboard = () => {
                                     </div>
                                     <div>
                                         {
-                                            data.Company_logo ? <><img src={data.Company_logo} className="w-16" /></> : <><img src="https://i.ibb.co/FwnDR32/circle-icon-demo-4x.jpg" className="w-16" /> </>
+                                            data.Company_logo ? <><img src={data.Company_logo} className="w-16 rounded-xl " /></> : <><img src="https://i.ibb.co/FwnDR32/circle-icon-demo-4x.jpg" className="w-16" /> </>
                                         }
 
                                     </div>

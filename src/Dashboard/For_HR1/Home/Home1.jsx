@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid } from 'recharts';
 import SectionTitle from "../../../Shared/SectionTitle";
 import RequestCard from "../All_requests.jsx/RequestCard";
 import AssetCard from "../../For_HR/Add_an_asset/AssestList.jsx/AssetCard";
-import CalendarComponent from "../../For_Em/CalendarComponent";
 import ThankYouComponent from "./ThankYouComponent";
 import { Helmet } from "react-helmet";
 import useAuth from "../../../Hooks/useAuth";
@@ -33,7 +32,7 @@ const Home1 = () => {
         }
     }, [data]);
 
-    
+
 
     const fetchAssets = (companyName) => {
         fetch('https://service-provider-website-server.vercel.app/requestAsset')
@@ -100,7 +99,7 @@ const Home1 = () => {
                 const filtered = dat.filter(
                     (asset) => asset.Company_name === companyName
                 );
-            
+
 
                 // Categorize assets based on Product_type
                 const returnableCount = filtered.filter(
@@ -109,7 +108,7 @@ const Home1 = () => {
                 const nonReturnableCount = filtered.filter(
                     (asset) => asset.Product_type === 'Non-returnable'
                 ).length;
-                
+
                 console.log(returnableCount)
                 console.log(nonReturnableCount)
                 // Prepare pie chart data
@@ -138,7 +137,7 @@ const Home1 = () => {
 
     const COLORS = ['rgb(240, 90, 120)', 'rgb(100, 10, 220)'];
 
-    
+
 
     if (loading) {
         return <p>Loading assets...</p>;
@@ -189,31 +188,37 @@ const Home1 = () => {
 
 
 
-            <div className="flex justify-center font-serif pt-20 text-3xl font-semibold">
+            <div className="flex justify-center font-serif pt-20 text-3xl font-normal mb-2">
                 Product Type
             </div>
 
-            <div className="flex justify-center items-center mt-3" style={{ width: '100%', height: 400 }}>
-            
-                <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                        <Pie
-                            data={pieData}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            outerRadius={150}
-                            fill="#8884d8"
-                            dataKey="value"
-                        >
-                            {pieData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                        <Legend />
-                    </PieChart>
-                </ResponsiveContainer>
+            <div className="flex flex-col-reverse md:flex-row justify-center items-center gap-0 bg-blue-100 text-[16px] rounded-lg text-black">
+                <div className="w-5/6 lg:ml-60 text-justify">
+                The Returnable and Non-Returnable Asset section in an asset management website provides a clear visualization of asset classifications, helping users efficiently track and manage resources. Returnable assets are items expected to be returned after use, such as tools or equipment, while Non-Returnable assets are consumable items or products that are not reclaimed, like stationery or disposable supplies. This section empowers organizations to optimize asset utilization and monitor accountability effectively.
+                </div>
+                <div className=" " style={{ width: '100%', height: 400 }}>
+
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                            <Pie
+                                data={pieData}
+                                cx="50%"
+                                cy="50%"
+                                labelLine={false}
+                                outerRadius={140}
+                                fill="#8884d8"
+                                dataKey="value"
+                            >
+                                {pieData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Tooltip />
+                            <Legend />
+                        </PieChart>
+                    </ResponsiveContainer>
+
+                </div>
             </div>
             <div className="pt-2">
                 <div className="pt-20">

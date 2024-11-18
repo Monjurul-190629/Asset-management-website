@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 
 const ReqCard = ({ asset, onDelete }) => {
-    const { _id, Asset_image, Asset_name, Asset_type,  requestDate,  requestStatus, ApprovalDate } = asset;
+    const { _id, Asset_image, Asset_name, Asset_type, requestDate, requestStatus, ApprovalDate } = asset;
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -19,19 +19,19 @@ const ReqCard = ({ asset, onDelete }) => {
                 fetch(`https://service-provider-website-server.vercel.app/requestAsset/${id}`, {
                     method: 'DELETE'
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.deletedCount > 0) {
-                        Swal.fire({
-                            title: "Rejected!",
-                            text: "This request has been cancelled.",
-                            icon: "success"
-                        });
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Rejected!",
+                                text: "This request has been cancelled.",
+                                icon: "success"
+                            });
 
-                        onDelete();
-                    }
-                })
-                .catch(error => console.error('Error deleting request:', error));
+                            onDelete();
+                        }
+                    })
+                    .catch(error => console.error('Error deleting request:', error));
             }
         });
     };
@@ -45,41 +45,43 @@ const ReqCard = ({ asset, onDelete }) => {
 
     return (
         <div>
-            <div className="card bg-purple-800 text-white shadow-2xl">
-                <figure className="px-10 pt-10">
-                    <img src={Asset_image} alt="product" className="rounded-xl w-[350px] h-[200px]" />
-                </figure>
-                <div className="card-body items-center text-center">
-                    <h2 className="card-title underline">{Asset_name}!</h2>
-                    <div className="flex justify-evenly gap-10 items-center pt-5">
-                        <h3><span className="font-semibold text-[18px]">Type:</span> {Asset_type}</h3>
+            <div className="bg-blue-300 border-2 border-slate-500 rounded-lg  px-4 py-4">
+                <div className="card bg-blue-800 text-white shadow-2xl hover:duration-700 hover:-translate-y-8">
+                    <figure className="px-5 pt-5">
+                        <img src={Asset_image} alt="product" className="rounded-xl w-[300px] h-[200px]" />
+                    </figure>
+                    <div className="card-body text-justify">
+                        <h2 className="card-title underline">{Asset_name}!</h2>
+                        <div className=" pt-1 text-justify">
+                            <h3><span className="font-semibold text-[18px]">Type:</span> {Asset_type}</h3>
+                        </div>
+
+                        <div className="pt-1 text-justify">
+                            <h3><span className="font-semibold text-[18px] mr-2">Date:</span> {requestDate}</h3>
+                        </div>
+
+                        <div className="pt-1 text-justify">
+                            <h3><span className="font-semibold text-[18px]">Approval_Date:</span> {ApprovalDate}</h3>
+                        </div>
+
+                        <div className="pt-1 text-justify">
+                            <h3><span className="font-semibold text-[18px]">Status:</span> {requestStatus}</h3>
+                            {
+                                requestStatus === 'pending' ? (
+                                    <>
+                                        <button className="btn mt-3" onClick={() => handleDelete(_id)}>
+                                            Cancel
+                                        </button>
+                                    </>
+                                ) : (
+                                    // Content to render if requestStatus is not 'pending'
+                                    <></>
+                                )
+                            }
+                        </div>
+
+
                     </div>
-
-                    <div className="flex justify-evenly gap-7 items-center pt-5">
-                        <h3><span className="font-semibold text-[18px]">Request_Date:</span> {requestDate}</h3>
-                    </div>
-
-                    <div className="flex justify-evenly gap-7 items-center pt-5">
-                        <h3><span className="font-semibold text-[18px]">Approval_Date:</span> {ApprovalDate}</h3>
-                    </div>
-
-                    <div className="flex justify-evenly gap-7 items-center pt-5">
-                        <h3><span className="font-semibold text-[18px]">Status:</span> {requestStatus}</h3>
-                        {
-                            requestStatus === 'pending' ? (
-                                <>
-                                   <button className="btn" onClick={() => handleDelete(_id)}>
-                                    Cancel
-                                   </button>
-                                </>
-                            ) : (
-                                // Content to render if requestStatus is not 'pending'
-                                <></>
-                            )
-                        }
-                    </div>
-
-
                 </div>
             </div>
 

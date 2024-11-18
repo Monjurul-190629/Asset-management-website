@@ -123,7 +123,7 @@ const EmployeeList = () => {
                                             </td>
                                             <td className="font-semibold">{user.name}</td>
                                             <td>
-                                                <button onClick={() => handleRemove(user)} className="py-2 px-2 bg-purple-700 text-[18px] text-white rounded-lg">Remove From Team</button>
+                                                <button onClick={() => handleRemove(user)} className="py-1 px-2 bg-red-500 text-[18px] text-white rounded-lg">Remove From Team</button>
                                             </td>
                                         </tr>
                                     ))

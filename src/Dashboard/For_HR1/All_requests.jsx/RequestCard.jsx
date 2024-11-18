@@ -94,8 +94,8 @@ const RequestCard = ({ asset, onDelete }) => {
                         <h3><span className="font-semibold text-[18px]  mt-2">Date:</span> {requestDate}</h3>
                     </div>
                     <div className="flex items-center gap-10 py-3">
-                        <button className="btn bg-blue-700 text-white" onClick={handleUpdate}>Approve</button>
-                        <button className="btn bg-red-600 text-white" onClick={() => handleDelete(_id)}>Reject</button>
+                        <button className="btn bg-blue-700 hover:bg-white hover:text-black hover:border-2 hover:border-slate-700 text-white" onClick={handleUpdate}>Approve</button>
+                        <button className="btn bg-red-600 hover:bg-white hover:text-black hover:border-2 hover:border-slate-700 text-white" onClick={() => handleDelete(_id)}>Reject</button>
                     </div>
                 </div>
             </div>
