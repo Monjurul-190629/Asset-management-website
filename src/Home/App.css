@@ -29,4 +29,10 @@
     background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
     z-index: 0;
   }
+
+  @media (max-width: 768px) {
+    .banner-content{
+      left: 50%;
+    }
+  }
   

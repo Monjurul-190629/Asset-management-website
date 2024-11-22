@@ -116,11 +116,11 @@ const Join_as_employee = () => {
                                 <input type="text" id="date" className="w-[220px] lg:w-[260px] mb-5 py-2 outline-0 placeholder-black bg-slate-200 border-b-2 border-slate-500 text-justify" name="date" placeholder="Date of Birthday" required />
                             </div>
                             <div>
-                                <button type="Submit" className="btn bg-slate-500 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black lg:w-[280px] " >Sign up</button>
+                                <button type="Submit" className="btn bg-slate-500 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black w-[220px] lg:w-[280px] " >Sign up</button>
                             </div>
                             <br />
                             <div className="">
-                                <button onClick={handleGoogleSignup} className="btn mb-10 -mt-4 bg-slate-500 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black lg:w-[280px]">Sign up with your gmail <FaGoogle /></button>
+                                <button onClick={handleGoogleSignup} className="btn mb-10 -mt-4 bg-slate-500 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black w-[220px] lg:w-[280px]">Sign up with your gmail <FaGoogle /></button>
                             </div>
                         </form>
                     </div>

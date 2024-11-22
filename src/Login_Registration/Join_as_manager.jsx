@@ -150,10 +150,10 @@ const Join_as_manager = () => {
 
                                 {/* Modal */}
                                 {/* You can open the modal using document.getElementById('ID').showModal() method */}
-                                <button type="Submit" className="btn bg-slate-600 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black lg:w-[620px]" >Sign up</button>
+                                <button type="Submit" className="btn bg-slate-600 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black w-[220px] lg:w-[620px]" >Sign up</button>
                                 <br />
-                                <div className="mt-5">
-                                    <button onClick={handleGoogleSignup} className="btn bg-slate-600 text-white hover:text-black hover:bg-white hover:border-2 hover:border-black lg:w-[620px]">Sign up with your gmail <FaGoogle /></button>
+                                <div className="-mt-5 md:mt-5">
+                                    <button onClick={handleGoogleSignup} className="btn bg-slate-600 text-white hover:text-black w-[220px] hover:bg-white hover:border-2 hover:border-black lg:w-[620px]">Sign up with your gmail <FaGoogle /></button>
                                 </div>
                             </form>
                         </div>
