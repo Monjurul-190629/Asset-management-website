@@ -45,8 +45,8 @@ const ReqCard = ({ asset, onDelete }) => {
 
     return (
         <div>
-            <div className="bg-blue-300 border-2 border-slate-500 rounded-lg  px-4 py-4">
-                <div className="card bg-blue-800 text-white shadow-2xl hover:duration-700 hover:-translate-y-8">
+            <div className="bg-blue-200 border-2 border-blue-500 rounded-lg  px-5 py-5">
+                <div className="card bg-blue-600 text-white shadow-2xl hover:duration-700 hover:-translate-y-8">
                     <figure className="px-5 pt-5">
                         <img src={Asset_image} alt="product" className="rounded-xl w-[300px] h-[200px]" />
                     </figure>

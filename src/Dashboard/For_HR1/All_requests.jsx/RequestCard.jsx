@@ -74,8 +74,8 @@ const RequestCard = ({ asset, onDelete }) => {
     };
 
     return (
-        <div className="border-2 border-slate-500 bg-slate-400 px-4 py-4 rounded-lg">
-            <div className="card bg-slate-600 text-white shadow-2xl hover:duration-700 hover:-translate-y-6">
+        <div className="border-2 border-blue-800 bg-blue-200 px-5 py-5 rounded-lg">
+            <div className="card bg-blue-600 text-white shadow-2xl hover:duration-700 hover:-translate-y-6">
                 <figure className="px-10 pt-10">
                     <img src={Asset_image} alt="product" className="rounded-xl w-[350px] h-[200px]" />
                 </figure>
