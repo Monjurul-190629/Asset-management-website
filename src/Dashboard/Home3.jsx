@@ -29,7 +29,7 @@ const Home3 = () => {
                 </> : <>
                 {
                     data.Company_name ? <> <Home2></Home2> </> : <>
-                    <div className="text-3xl font-semibold text-red-900 pt-20">
+                    <div className="text-3xl font-semibold text-red-700 py-20">
                         contact to your manager
                     </div>
                     </>

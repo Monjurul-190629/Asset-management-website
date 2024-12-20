@@ -97,30 +97,34 @@ const AssetList = () => {
                 <title>AssetList</title>
             </Helmet>
             <div className="md:text-center">
-                <div className="my-7">
+                <div className="my-7 flex justify-center">
                     <input
                         type="text"
                         placeholder="Search by product name...."
                         value={searchTerm}
                         onChange={handleSearch}
-                        className="px-3 py-2  border-b-2 border-b-slate-700 outline-0 placeholder-slate-600"
+                        className="px-3 py-2 text-center border-b-2 border-b-slate-700 outline-0 placeholder-slate-600 w-full max-w-md"
                     />
                 </div>
-                <div className="mb-7">
-                    <label className="mr-2 font-semibold">Stock Status:</label>
-                    <select value={stockFilter} onChange={handleStockFilterChange}>
-                        <option value="all">All</option>
-                        <option value="available">Available</option>
-                        <option value="out-of-stock">Out of Stock</option>
-                    </select>
-                    <label className="ml-4 mr-2 font-semibold">Asset Type:</label>
-                    <select value={typeFilter} onChange={handleTypeFilterChange}>
-                        <option value="all">All</option>
-                        <option value="returnable">Returnable</option>
-                        <option value="non-returnable">Non-returnable</option>
-                    </select>
+                <div className="mb-7 flex flex-col gap-5 md:flex-row justify-center items-center w-full">
+                    <div className="flex flex-col items-center md:items-start">
+                        <label className="mr-2 font-semibold">Stock Status:</label>
+                        <select value={stockFilter} onChange={handleStockFilterChange} className="mt-2 md:mt-0">
+                            <option value="all">All</option>
+                            <option value="available">Available</option>
+                            <option value="out-of-stock">Out of Stock</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-col items-center md:items-start">
+                        <label className="ml-4 mr-2 font-semibold">Asset Type:</label>
+                        <select value={typeFilter} onChange={handleTypeFilterChange} className="mt-2 md:mt-0">
+                            <option value="all">All</option>
+                            <option value="returnable">Returnable</option>
+                            <option value="non-returnable">Non-returnable</option>
+                        </select>
+                    </div>
                 </div>
-                <div className="mb-7">
+                <div className="mb-7 flex justify-center items-center">
                     <label className="mr-2 font-semibold">Sort by Quantity:</label>
                     <select value={sortBy} onChange={handleSortChange}>
                         <option value="quantity-asc">Quantity - Ascending</option>
@@ -129,7 +133,7 @@ const AssetList = () => {
                 </div>
             </div>
             <div className="flex justify-center items-center">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 px-5 md:px-0">
                     {filteredAndSortedAssets.length > 0 ? (
                         filteredAndSortedAssets.map(asset => (
                             <AssetCard key={asset._id} asset={asset} onDelete={handleDelete} />

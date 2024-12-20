@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import SectionTitle from "../../../Shared/SectionTitle";
 import RequestCard from "../All_requests.jsx/RequestCard";
 import AssetCard from "../../For_HR/Add_an_asset/AssestList.jsx/AssetCard";
@@ -29,10 +29,10 @@ const Home1 = () => {
     useEffect(() => {
         if (data && data.Company_name) {
             fetchAssets(data.Company_name);
+            fetchAssets1(data.Company_name);
+            fetchChartData(data.Company_name);
         }
     }, [data]);
-
-
 
     const fetchAssets = (companyName) => {
         fetch('https://service-provider-website-server.vercel.app/requestAsset')
@@ -40,7 +40,6 @@ const Home1 = () => {
             .then(dat => {
                 const filtered = dat.filter(asset => asset.Company_name === companyName);
                 setAssets(filtered);
-                console.log(filtered)
                 setLoading(false);
             })
             .catch(error => {
@@ -50,18 +49,11 @@ const Home1 = () => {
             });
     };
 
-    useEffect(() => {
-        if (data && data.Company_name) {
-            fetchAssets1(data.Company_name);
-            fetchc(data.Company_name)
-        }
-    }, [data]);
-
     const fetchAssets1 = (companyName) => {
         fetch('https://service-provider-website-server.vercel.app/assets')
             .then(res => res.json())
             .then(dat => {
-                const filtered = dat.filter(asset => (asset.Company_name === companyName && asset.Product_Quantity < 10 && asset.Product_Quantity >= 0));
+                const filtered = dat.filter(asset => asset.Company_name === companyName && asset.Product_Quantity < 10 && asset.Product_Quantity >= 0);
                 setAssets1(filtered);
                 setLoading(false);
             })
@@ -72,158 +64,101 @@ const Home1 = () => {
             });
     };
 
-
-
-
-
-
-
-    const handleDelete = () => {
-        if (data && data.Company_name) {
-            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
-        }
-    };
-
-    const handleUpdate = () => {
-        if (data && data.Company_name) {
-            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
-        } // Re-fetch assets after an update
-    };
-
-
-
-    const fetchc = (companyName) => {
+    const fetchChartData = (companyName) => {
         fetch('https://service-provider-website-server.vercel.app/assets')
-            .then((res) => res.json())
-            .then((dat) => {
-                const filtered = dat.filter(
-                    (asset) => asset.Company_name === companyName
-                );
+            .then(res => res.json())
+            .then(dat => {
+                const filtered = dat.filter(asset => asset.Company_name === companyName);
+                const returnableCount = filtered.filter(asset => asset.Product_type === 'Returnable').length;
+                const nonReturnableCount = filtered.filter(asset => asset.Product_type === 'Non-returnable').length;
 
-
-                // Categorize assets based on Product_type
-                const returnableCount = filtered.filter(
-                    (asset) => asset.Product_type === 'Returnable'
-                ).length;
-                const nonReturnableCount = filtered.filter(
-                    (asset) => asset.Product_type === 'Non-returnable'
-                ).length;
-
-                console.log(returnableCount)
-                console.log(nonReturnableCount)
-                // Prepare pie chart data
-                const chartData = [
+                setPieData([
                     { name: 'Returnable', value: returnableCount },
                     { name: 'Non-Returnable', value: nonReturnableCount },
-                ];
-                setPieData(chartData);
+                ]);
                 setLoading(false);
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error('Error fetching assets:', error);
                 setError(error.message);
                 setLoading(false);
             });
     };
 
-
-
-
-
-
-
-
-
-
     const COLORS = ['rgb(240, 90, 120)', 'rgb(100, 10, 220)'];
 
-
-
     if (loading) {
-        return <p>Loading assets...</p>;
+        return <p className="text-center text-lg">Loading assets...</p>;
     }
 
     if (error) {
-        return <p>Error: {error}</p>;
+        return <p className="text-center text-red-600 text-lg">Error: {error}</p>;
     }
 
     return (
-        <div>
+        <div className="px-3 md:px-8">
             <Helmet>
                 <title>Home</title>
             </Helmet>
-            <div>
-                <SectionTitle heading={`Pending Request : ${assets.length}`} ></SectionTitle>
+
+            {/* Pending Requests Section */}
+            <SectionTitle heading={`Pending Requests: ${assets.length}`} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
+                {assets.slice(0, 5).map(asset => (
+                    <RequestCard
+                        key={asset._id}
+                        asset={asset}
+                        onDelete={() => fetchAssets(data.Company_name)}
+                    />
+                ))}
             </div>
-            <div className="flex justify-center items-center">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    {
-                        assets.slice(0, 5).map(asset => (
-                            <RequestCard
-                                key={asset._id}
-                                asset={asset}
-                                onDelete={handleDelete}
-                            />
-                        ))
-                    }
+
+            {/* Limited Stock Items Section */}
+            <SectionTitle heading={`Limited Stock Items: ${assets1.length}`} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
+                {assets1.slice(0, 5).map(asset => (
+                    <AssetCard
+                        key={asset._id}
+                        asset={asset}
+                        onDelete={() => fetchAssets1(data.Company_name)}
+                        onUpdate={() => fetchAssets1(data.Company_name)}
+                    />
+                ))}
+            </div>
+
+            {/* Pie Chart Section */}
+            <div className="my-12">
+                <h2 className="text-center text-3xl font-semibold mb-4">Product Type Distribution</h2>
+                <div className="flex flex-col-reverse md:flex-row items-center gap-6 bg-blue-100 p-6 rounded-lg">
+                    <p className="text-sm md:w-1/2 text-justify">
+                        The Returnable and Non-Returnable Asset section in an asset management website provides a clear visualization of asset classifications, helping users efficiently track and manage resources. Returnable assets are items expected to be returned after use, such as tools or equipment, while Non-Returnable assets are consumable items or products that are not reclaimed, like stationery or disposable supplies. This section empowers organizations to optimize asset utilization and monitor accountability effectively.
+                    </p>
+                    <div className="w-full md:w-1/2" style={{ height: 400 }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <PieChart>
+                                <Pie
+                                    data={pieData}
+                                    cx="50%"
+                                    cy="50%"
+                                    outerRadius={140}
+                                    label
+                                    dataKey="value"
+                                >
+                                    {pieData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                                <Legend />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
                 </div>
             </div>
-            <div className="pt-20">
-                <SectionTitle heading={`Limited Stock Items : ${assets1.length}`}></SectionTitle>
-            </div>
-            <div className="flex justify-center items-center">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    {
-                        assets1.slice(0, 5).map(asset => (
-                            <AssetCard
-                                key={asset._id}
-                                asset={asset}
-                                onDelete={handleDelete}
-                                onUpdate={handleUpdate}
-                            />
-                        ))
-                    }
-                </div>
-            </div>
 
-
-
-            <div className="flex justify-center font-serif pt-20 text-3xl font-normal mb-2">
-                Product Type
-            </div>
-
-            <div className="flex flex-col-reverse md:flex-row justify-center items-center gap-0 bg-blue-100 text-[16px] rounded-lg text-black">
-                <div className="w-5/6 lg:ml-60 text-justify">
-                The Returnable and Non-Returnable Asset section in an asset management website provides a clear visualization of asset classifications, helping users efficiently track and manage resources. Returnable assets are items expected to be returned after use, such as tools or equipment, while Non-Returnable assets are consumable items or products that are not reclaimed, like stationery or disposable supplies. This section empowers organizations to optimize asset utilization and monitor accountability effectively.
-                </div>
-                <div className=" " style={{ width: '100%', height: 400 }}>
-
-                    <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                            <Pie
-                                data={pieData}
-                                cx="50%"
-                                cy="50%"
-                                labelLine={false}
-                                outerRadius={140}
-                                fill="#8884d8"
-                                dataKey="value"
-                            >
-                                {pieData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                            <Legend />
-                        </PieChart>
-                    </ResponsiveContainer>
-
-                </div>
-            </div>
-            <div className="pt-2">
-                <div className="pt-20">
-                    <ThankYouComponent></ThankYouComponent>
-                </div>
+            {/* Thank You Section */}
+            <div className="my-12">
+                <ThankYouComponent />
             </div>
         </div>
     );

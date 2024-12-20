@@ -34,7 +34,7 @@ const Myassets = () => {
         fetch('https://service-provider-website-server.vercel.app/requestAsset')
             .then(res => res.json())
             .then(dat => {
-                const filtered = dat.filter(asset => (asset.Company_name === companyName && asset.userEmail === user.email) );
+                const filtered = dat.filter(asset => (asset.Company_name === companyName && asset.userEmail === user.email));
                 setAssets(filtered);
                 setLoading(false);
             })
@@ -88,7 +88,7 @@ const Myassets = () => {
             </Helmet>
             {data.Company_name && (
                 <div className="md:text-center">
-                    <div className="my-7">
+                    <div className="my-7 flex justify-center">
                         <input
                             type="text"
                             placeholder="Search by product name..."
@@ -97,24 +97,28 @@ const Myassets = () => {
                             className="px-3 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
-                    <div className="mb-7">
-                        <label className="mr-2 font-semibold">Stock Status:</label>
-                        <select value={stockFilter} onChange={handleStockFilterChange}>
-                            <option value="all">All</option>
-                            <option value="pending">Pending</option>
-                            <option value="approved">Approved</option>
-                        </select>
-                        <label className="ml-4 mr-2 font-semibold">Asset Type:</label>
-                        <select value={typeFilter} onChange={handleTypeFilterChange}>
-                            <option value="all">All</option>
-                            <option value="returnable">Returnable</option>
-                            <option value="non-returnable">Non-returnable</option>
-                        </select>
+                    <div className="mb-7 flex flex-col lg:flex-row justify-center items-center gap-5">
+                        <div>
+                            <label className="mr-2 font-semibold">Stock Status:</label>
+                            <select value={stockFilter} onChange={handleStockFilterChange}>
+                                <option value="all">All</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="ml-4 mr-2 font-semibold">Asset Type:</label>
+                            <select value={typeFilter} onChange={handleTypeFilterChange}>
+                                <option value="all">All</option>
+                                <option value="returnable">Returnable</option>
+                                <option value="non-returnable">Non-returnable</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             )}
 
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center px-3 lg:px-0">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {filteredAndSortedAssets.length > 0 ? (
                         filteredAndSortedAssets.map(asset => (

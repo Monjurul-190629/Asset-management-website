@@ -8,8 +8,8 @@ const About = () => {
             <SectionTitle heading={'About_our_site'}></SectionTitle>
             <div className="md:px-20 px-4 py-2  rounded-xl  text-justify">
 
-                <div className="flex flex-col lg:flex-row-reverse gap-5 md:gap-10 md:justify-center">
-                    <div className='md:flex-1'>
+                <div className="flex flex-col lg:flex-row-reverse gap-5 lg:justify-center lg:items-center">
+                    <div className='lg:flex-1 flex justify-center items-center'>
                         <img src="https://7virtualassistantservices.com/wp-content/uploads/2022/10/service-600x353.jpg" className="max-w-full rounded-lg shadow-2xl" />
                     </div>
                     <div className='md:flex-1'>

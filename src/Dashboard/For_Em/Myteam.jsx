@@ -42,13 +42,13 @@ const Myteam = () => {
                 <title>My team</title>
             </Helmet>
             <div className="text-center pt-10">
-                <h3 className="text-2xl font-semibold">Total team members: {users.length}</h3>
+                <h3 className="text-xl md:text-2xl font-semibold">Total team members: {users.length}</h3>
             </div>
             <div>
                 <div className="flex justify-center items-center py-8">
                     <div className="overflow-x-auto">
                         <table className="table">
-                            <thead className="text-xl font-semibold text-black">
+                            <thead className="text-[16px] md:text-xl font-semibold text-black">
                                 <tr>
                                    
                                     <th>Image</th>
@@ -62,7 +62,7 @@ const Myteam = () => {
                                         <tr key={user._id}>
                                             
                                             <td>
-                                                <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[60px] flex justify-center" />
+                                                <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[40px] md:w-[60px] flex justify-center" />
                                             </td>
                                             <td className="text-slate-900">{user.name}</td>
                                             

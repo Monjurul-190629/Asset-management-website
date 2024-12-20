@@ -105,15 +105,15 @@ const Add_an_employee = () => {
     };
 
     return (
-        <div>
+        <div className="mx-auto">
             <Helmet>
                 <title>Add an Employee</title>
             </Helmet>
             <div className="flex flex-col justify-center items-center gap-10">
-                <div className="text-2xl font-semibold">
+                <div className="text-xl md:text-2xl font-semibold">
                     Total Employee: {employee}
                 </div>
-                <div className="text-2xl font-semibold">
+                <div className="text-xl md:text-2xl font-semibold">
                     <span className="pr-5">Package limit: {limit}</span>
                     <Link to="/Dashboard/Package">
                         <button className="bg-blue-700 hover:bg-blue-800 py-1 px-2 rounded-md text-[16px] text-white">Increase limit</button>
@@ -124,7 +124,7 @@ const Add_an_employee = () => {
                 <div className="overflow-x-auto">
                     <table className="table">
                         <thead>
-                            <tr className="font-semibold text-xl underline text-black">
+                            <tr className="font-semibold text-[16px] md:text-xl underline text-black">
                                 <th></th>
                                 <th>Image</th>
                                 <th>Name</th>
@@ -141,7 +141,7 @@ const Add_an_employee = () => {
                                             </label>
                                         </td>
                                         <td>
-                                            <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[60px] flex justify-center" />
+                                            <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[40px] md:w-[60px] flex justify-center" />
                                         </td>
                                         <td className="font-semibold">{user.name}</td>
                                         <td>
@@ -149,7 +149,7 @@ const Add_an_employee = () => {
                                                 limit === 0 ? <>
                                                 <button onClick = {handleShow} className="py-1 px-2 bg-slate-900 font-semibold text-white rounded-lg">Add me</button>
                                                 </> : <>
-                                                <button onClick={() => handleAddTeam(user)} className="py-2 px-2 bg-purple-700 hover:bg-purple-800 text-white rounded-lg">Add team</button>
+                                                <button onClick={() => handleAddTeam(user)} className="py-1 md:py-2 px-2 bg-purple-700 hover:bg-purple-800 text-white rounded-lg">Add team</button>
                                                 </>
                                             }
                                         </td>

@@ -17,7 +17,7 @@ const AllRequest = () => {
             fetch(`https://service-provider-website-server.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => setData(data))
-                .catch(error => console.error('Error fetching user data:', error));
+                .catch(error => console.error("Error fetching user data:", error));
         }
     }, [user]);
 
@@ -28,87 +28,81 @@ const AllRequest = () => {
     }, [data]);
 
     const fetchAssets = (companyName) => {
-        fetch('https://service-provider-website-server.vercel.app/requestAsset')
-            .then(res => res.json())
-            .then(dat => {
-                const filtered = dat.filter(asset => asset.Company_name === companyName);
+        fetch("https://service-provider-website-server.vercel.app/requestAsset")
+            .then((res) => res.json())
+            .then((dat) => {
+                const filtered = dat.filter((asset) => asset.Company_name === companyName);
                 setAssets(filtered);
                 setLoading(false);
             })
-            .catch(error => {
-                console.error('Error fetching assets:', error);
+            .catch((error) => {
+                console.error("Error fetching assets:", error);
                 setError(error.message);
                 setLoading(false);
             });
     };
 
-    
-
-
-
-
-    
-
     const handleDelete = () => {
         if (data && data.Company_name) {
-            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
+            fetchAssets(data.Company_name); 
         }
     };
 
     const handleUpdate = () => {
         if (data && data.Company_name) {
-            fetchAssets(data.Company_name); // Example: You may need to implement logic to update assets state
-        } // Re-fetch assets after an update
+            fetchAssets(data.Company_name); 
+        }
     };
 
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
     };
 
-    const filteredAndSortedAssets = assets.filter(asset => {
-        const emailMatch = asset.userEmail.toLowerCase().includes(searchTerm.toLowerCase());
-        return emailMatch;
-    });
+    const filteredAndSortedAssets = assets.filter((asset) =>
+        asset.userEmail.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     if (loading) {
-        return <p>Loading assets...</p>;
+        return <p className="text-center text-lg">Loading assets...</p>;
     }
 
     if (error) {
-        return <p>Error: {error}</p>;
+        return <p className="text-center text-red-600 text-lg">Error: {error}</p>;
     }
 
     return (
-        <div>
+        <div className="px-4 md:px-8">
             <Helmet>
                 <title>All Requests</title>
             </Helmet>
-            <div className="md:text-center">
-                <div className="my-7">
-                    <input
-                        type="text"
-                        placeholder="Search by Email..."
-                        value={searchTerm}
-                        onChange={handleSearch}
-                        className="px-3 py-2 border border-gray-300 rounded-lg"
-                    />
-                </div>
+
+            {/* Search Input Section */}
+            <div className="flex justify-center my-6">
+                <input
+                    type="text"
+                    placeholder="Search by Email..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
             </div>
-            <div className="flex justify-center items-center">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    {filteredAndSortedAssets.length > 0 ? (
-                        filteredAndSortedAssets.map(asset => (
-                            <RequestCard 
-                                key={asset._id} 
-                                asset={asset} 
-                                onDelete={handleDelete} 
-                                onUpdate={handleUpdate} 
-                            />
-                        ))
-                    ) : (
-                        <p>No assets found</p>
-                    )}
-                </div>
+
+            {/* Asset Cards Section */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredAndSortedAssets.length > 0 ? (
+                    filteredAndSortedAssets.map((asset) => (
+                        <RequestCard
+                            key={asset._id}
+                            asset={asset}
+                            onDelete={handleDelete}
+                            onUpdate={handleUpdate}
+                        />
+                    ))
+                ) : (
+                    <p className="text-center col-span-full text-lg text-gray-600">
+                        No assets found.
+                    </p>
+                )}
             </div>
         </div>
     );

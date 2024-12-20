@@ -65,35 +65,37 @@ const Home2 = () => {
 
     return (
         <div>
-           <div>
-                        <Helmet>
-                            <title>Home</title>
-                        </Helmet>
-                        <div>
-                            <SectionTitle heading={`My Pending Request:  ${assets.length}`}></SectionTitle>
-                        </div>
-                        <div className="flex justify-center items-center">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                                {assets.map(asset => (
-                                    <ReqCard key={asset._id} asset={asset} onDelete={handleDelete} />
-                                ))}
-                            </div>
-                        </div>
-                        <div className="pt-20">
-                            <SectionTitle heading={`My Monthly Request:  ${assets1.length}`}></SectionTitle>
-                        </div>
-                        <div className="flex justify-center items-center">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                                {assets1.map(asset => (
-                                    <ReqCard key={asset._id} asset={asset} onDelete={handleDelete} />
-                                ))}
-                            </div>
-                        </div>
-                        <div className="pt-20">
-                            <SectionTitle heading="Calendar"></SectionTitle>
-                            <CalendarComponent />
-                        </div>
+            <Helmet>
+                <title>Home</title>
+            </Helmet>
+            <div className="px-4 md:px-8 lg:px-12 xl:px-20">
+                <div>
+                    <SectionTitle heading={`My Pending Request: ${assets.length}`} />
+                </div>
+                <div className="flex justify-center items-center px-2 md:px-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4">
+                        {assets.map(asset => (
+                            <ReqCard key={asset._id} asset={asset} onDelete={handleDelete} />
+                        ))}
                     </div>
+                </div>
+                <div className="pt-16">
+                    <SectionTitle heading={`My Monthly Request: ${assets1.length}`} />
+                </div>
+                <div className="flex justify-center items-center px-2 md:px-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4">
+                        {assets1.map(asset => (
+                            <ReqCard key={asset._id} asset={asset} onDelete={handleDelete} />
+                        ))}
+                    </div>
+                </div>
+                <div className="pt-16">
+                    <SectionTitle heading="Calendar" />
+                    <div className="mt-8">
+                        <CalendarComponent />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

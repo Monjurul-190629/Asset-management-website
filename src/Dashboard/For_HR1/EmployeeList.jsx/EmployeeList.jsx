@@ -95,13 +95,13 @@ const EmployeeList = () => {
                 <title>My Employee List</title>
             </Helmet>
             <div className="text-center pt-10">
-                <h3 className="text-2xl font-semibold">Number of the Employees: {employee}</h3>
+                <h3 className="text-xl md:text-2xl font-semibold">Number of the Employees: {employee}</h3>
             </div>
             <div>
                 <div className="flex justify-center items-center py-8">
                     <div className="overflow-x-auto">
                         <table className="table">
-                            <thead className="text-xl font-semibold text-black underline">
+                            <thead className="text-[16px] md:text-xl font-semibold text-black underline">
                                 <tr>
                                     <th></th>
                                     <th>Image</th>
@@ -119,11 +119,11 @@ const EmployeeList = () => {
                                                 </label>
                                             </td>
                                             <td>
-                                                <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[60px] flex justify-center" />
+                                                <img src={user.Profile_image} alt="Avatar Tailwind CSS Component" className="w-[40px] md:w-[60px] flex justify-center" />
                                             </td>
                                             <td className="font-semibold">{user.name}</td>
                                             <td>
-                                                <button onClick={() => handleRemove(user)} className="py-1 px-2 bg-red-500 text-[18px] text-white rounded-lg">Remove From Team</button>
+                                                <button onClick={() => handleRemove(user)} className="py-2 px-2 bg-purple-800 text-[14px] text-white rounded-lg">Remove</button>
                                             </td>
                                         </tr>
                                     ))

@@ -74,7 +74,7 @@ const UpdateData = () => {
                                 </div>
                             </div>
                             <div className="w-full">
-                                <input type="submit" value="Update" className="w-full py-1 bg-blue-600 text-white rounded-md hover:text-black  hover:bg-transparent hover:border-2 hover:border-black" />
+                                <input type="submit" value="Update" className="w-full py-2 bg-blue-600 text-white rounded-md hover:text-black  hover:bg-transparent hover:border-2 hover:border-black" />
                             </div>
                         </form>
                     </div>
