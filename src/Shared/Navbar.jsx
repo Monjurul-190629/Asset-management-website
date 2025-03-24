@@ -1,35 +1,53 @@
 import { NavLink } from "react-router-dom";
 
-
-
-
 const Navbar = () => {
-
-
-
-
-    const navLink = <>
-        <li>
-            <NavLink to="/" className="font-semibold"> Home</NavLink>
-        </li>
-        <li>
-            <NavLink to="/join_as_employee" className="font-semibold">Join As Employee</NavLink>
-        </li>
-        <li>
-            <NavLink to="/join_as_manager" className="font-semibold">Join As HR Manager</NavLink>
-        </li>
-        <li>
-            <NavLink to="/login" className="font-semibold">Login</NavLink>
-        </li>
-    </>
-
+    const navLink = (
+        <>
+            <li>
+                <NavLink
+                    to="/"
+                    className="font-medium text-black transition duration-300 ease-in-out hover:text-gray-600 hover:scale-105"
+                >
+                    Home
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to="/join_as_employee"
+                    className="font-medium text-black transition duration-300 ease-in-out hover:text-gray-600 hover:scale-105"
+                >
+                    Join As Employee
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to="/join_as_manager"
+                    className="font-medium text-black transition duration-300 ease-in-out hover:text-gray-600 hover:scale-105"
+                >
+                    Join As HR Manager
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to="/login"
+                    className="font-medium text-black transition duration-300 ease-in-out hover:text-gray-600 hover:scale-105"
+                >
+                    Login
+                </NavLink>
+            </li>
+        </>
+    );
 
     return (
-        <div className="py-1">
-            <div className="navbar  font-[20px] ">
+        <div className="sticky top-0 z-50 py-2 bg-white shadow-md">
+            <div className="navbar font-medium text-black px-4">
                 <div className="navbar-start">
-                    <div className="dropdown mr-5">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                    <div className="dropdown mr-5 lg:hidden">
+                        <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost lg:hidden text-black transition-transform duration-300 hover:scale-110"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-6 w-6"
@@ -47,25 +65,34 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[10] mt-3 w-52 p-2 shadow-lg"
+                            className="menu menu-sm dropdown-content bg-white rounded-box z-[10] mt-3 w-52 p-2 shadow-lg"
                         >
                             {navLink}
                         </ul>
                     </div>
 
-                    <div className="flex justify-center">
-                        <img src="https://pluspng.com/img-png/logo-template-png-logo-templates-1655.png" className="w-16 rounded-xl" />
-                        <a className=" mt-4 text-xl text-indigo-800" style={{ textShadow: '1px 1px 2px rgba(2, 10, 100, 0.7)' }}>ServiceSpectrum</a>
+                    <div className="flex justify-center items-center gap-2">
+                        <img
+                            src="https://pluspng.com/img-png/logo-template-png-logo-templates-1655.png"
+                            alt="logo"
+                            className="w-12 lg:w-14 rounded-xl transition-transform duration-300 transform hover:rotate-12"
+                        />
+                        <a
+                            className="mt-2 text-xl lg:text-2xl font-semibold text-black"
+                            style={{
+                                textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+                            }}
+                        >
+                            ServiceSpectrum
+                        </a>
                     </div>
                 </div>
+
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-sm menu-horizontal px-1">
                         {navLink}
                     </ul>
                 </div>
-
-
-
             </div>
         </div>
     );
